@@ -4,13 +4,26 @@ use strict;
 use Data::Dumper;
 
 my @values = ();
+my $number_digits = 0;
 open (my $input, '<', 'test_input');
 while (my $reading = <$input>) { 
   chomp $reading;
+  $number_digits = length($reading);
   my $value = oct('0b' . $reading);
   push @values, $value;
 }
 close $input;
+
+print "Number of digits: ", $number_digits, "\n";
+
+my @selected_values = ();
+
+
+
+
+
+
+exit;
 
 my $gamma = 0;
 my $epsilon = 0;
