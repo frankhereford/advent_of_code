@@ -19,8 +19,13 @@ $number_digits--; # zero indexed binary little endian values
 print "Number of digits: ", $number_digits, "\n";
 
 for (my $bit = $number_digits; $bit > -1; $bit--) { # zero indexed bit little endian
-  do_round('co2', $bit, \@values);
+  my $values = do_round('co2', $bit, \@values);
+  @values = @$values;
+  if (scalar(@values) == 1) {
+    print $values[0], "\n";
+    exit;
   }
+}
 
 sub do_round {
   my $gas = shift;
@@ -46,7 +51,16 @@ sub do_round {
     $keep_digit = $zeros <= $ones ? 0 : 1;
   }
   print "Keep:  ", $keep_digit, "\n";
+
+  my @return_values = ();
+  foreach my $value (@values) {
+    if (get_bit($value, $bit) == $keep_digit) {
+      push @return_values, $value;
+    }
+  }
+
   print "\n";
+  return \@return_values;
 }
 
 
