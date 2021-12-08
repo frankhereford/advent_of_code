@@ -14,6 +14,8 @@ while (my $reading = <$input>) {
 }
 close $input;
 
+$number_digits--; # zero indexed binary little endian values
+
 print "Number of digits: ", $number_digits, "\n";
 
 my @selected_values = ();
