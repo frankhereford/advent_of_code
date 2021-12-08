@@ -5,7 +5,7 @@ use Data::Dumper;
 
 my @values = ();
 my $number_digits = 0;
-open (my $input, '<', 'test_input');
+open (my $input, '<', 'input');
 while (my $reading = <$input>) { 
   chomp $reading;
   $number_digits = length($reading);
