@@ -21,7 +21,27 @@ print "Number of digits: ", $number_digits, "\n";
 my @selected_values = ();
 
 
+for (my $bit = $number_digits; $bit > -1; $bit--) { # zero indexed bit little endian
+  my $zeros = 0;
+  my $ones = 0;
+  foreach my $value (@values) {
+    $zeros++ unless get_bit($value, $bit);
+    $ones++ if get_bit($value, $bit);
+  }
+  print "Bit:   ", $bit, "\n";
+  print "Zeros: ", $zeros, "\n";
+  print "Ones:  ", $ones, "\n";
+  my $keep_digit = $zeros > $ones ? 0 : 1;
+  print "Keep:  ", $keep_digit, "\n";
 
+  
+
+  print "\n";
+}
+
+foreach my $value (@values) {
+
+}
 
 
 
@@ -29,22 +49,7 @@ exit;
 
 my $gamma = 0;
 my $epsilon = 0;
-for (my $bit = 4; $bit > -1; $bit--) { # zero indexed bit little endian
-  my $zeros = 0;
-  my $ones = 0;
-  foreach my $value (@values) {
-    #printf("%01b\n", get_bit($value, $bit));
-    $zeros++ unless get_bit($value, $bit);
-    $ones++ if get_bit($value, $bit);
-  }
-  print "Bit:   ", $bit, "\n";
-  print "Zeros: ", $zeros, "\n";
-  print "Ones:  ", $ones, "\n";
-  print "\n";
 
-  $gamma = ($gamma << 1) + ($ones > $zeros ? 1 : 0);
-  $epsilon = ($epsilon << 1) + ($ones < $zeros ? 1 : 0);
-}
 
 print "Gamma: ", $gamma, "\n"; # Decimal
 print "Epsilon: ", $epsilon, "\n"; # Decimal
