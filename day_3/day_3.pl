@@ -3,24 +3,18 @@
 use strict;
 use Data::Dumper;
 
+my @values = ();
 open (my $input, '<', 'input');
-
 while (my $reading = <$input>) { 
   chomp $reading;
-  print $reading, "\n";
-
   my $value = oct('0b' . $reading);
-  print $value, "\n";
+  push @values, $value;
+}
+close $input;
 
-  my $inspect_bit = 0b1;
-  for (my $bit = 0; $bit < 12; $bit++) {
-    #printf("%012b\n", $inspect_bit);
-    #$inspect_bit = $inspect_bit << 1;
-    printf("%01b\n", get_bit($value, $bit));
-  }
 
-  exit;
-  }
+#printf("%01b\n", get_bit($value, $bit));
+
 
 sub get_bit() {
   my $value = shift;
