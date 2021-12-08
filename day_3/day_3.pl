@@ -4,7 +4,7 @@ use strict;
 use Data::Dumper;
 
 my @values = ();
-open (my $input, '<', 'input');
+open (my $input, '<', 'test_input');
 while (my $reading = <$input>) { 
   chomp $reading;
   my $value = oct('0b' . $reading);
@@ -14,7 +14,7 @@ close $input;
 
 my $gamma = 0;
 my $epsilon = 0;
-for (my $bit = 0; $bit < 12; $bit++) {
+for (my $bit = 0; $bit < 5; $bit++) {
   my $zeros = 0;
   my $ones = 0;
   foreach my $value (@values) {
