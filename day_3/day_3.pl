@@ -14,9 +14,17 @@ while (my $reading = <$input>) {
 
   my $inspect_bit = 0b1;
   for (my $bit = 0; $bit < 12; $bit++) {
-    printf("%012b\n", $inspect_bit);
-    $inspect_bit = $inspect_bit << 1;
+    #printf("%012b\n", $inspect_bit);
+    #$inspect_bit = $inspect_bit << 1;
+    printf("%01b\n", get_bit($value, $bit));
   }
 
   exit;
   }
+
+sub get_bit() {
+  my $value = shift;
+  my $bit = shift; # decimal digit's place
+  my $mask = 2**$bit;
+  return ($mask & $value) >> $bit;
+}
