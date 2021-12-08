@@ -7,6 +7,7 @@ open (my $input, '<', 'input');
 
 my $horizontal_position = 0;
 my $depth = 0;
+my $aim = 0;
 
 while (my $command = <$input>) { 
   chomp $command;
@@ -15,15 +16,17 @@ while (my $command = <$input>) {
   my $direction = $1;
   my $scalar = $2;
 
-  print $direction, ": ", $scalar, "\n";
+  print "Command: ",  $direction, "→", $scalar, "\n";
 
-  if ($direction =~ /^(up|down)$/) {
-    $depth -= $scalar if ($direction eq 'up');
-    $depth += $scalar if ($direction eq 'down');
-  }
+  $aim += $scalar if $direction eq 'down';
+  $aim -= $scalar if $direction eq 'up';
 
-  $horizontal_position += $scalar if $direction eq 'forward';
+  if ($direction eq 'forward') {
+    $horizontal_position += $scalar;
+    $depth += $aim * $scalar;
+    }
 
+  print "Aim: ", $aim, "\n";
   print "Horizontal Position: ", $horizontal_position, "\n";
   print "Depth: ", $depth, "\n";
   print "\n";
