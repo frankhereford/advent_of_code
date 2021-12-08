@@ -14,7 +14,7 @@ close $input;
 
 my $gamma = 0;
 my $epsilon = 0;
-for (my $bit = 0; $bit < 5; $bit++) {
+for (my $bit = 4; $bit > -1; $bit--) { # what is the -1 wrongness that gets the correct answer
   my $zeros = 0;
   my $ones = 0;
   foreach my $value (@values) {
