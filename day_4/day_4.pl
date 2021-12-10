@@ -35,6 +35,14 @@ mark_boards(\@boards, 7);
 mark_boards(\@boards, 22);
 print Dumper \@boards;
 
+sub check_boards {
+  my $boards = shift;
+  my @boards = @$boards;
+  for (my $board = 0; $board < scalar(@boards); $board++) {
+  }
+
+}
+
 sub mark_boards {
   my $boards = shift;
   my $call = shift;
