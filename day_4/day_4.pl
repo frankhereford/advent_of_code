@@ -31,32 +31,6 @@ while (1) {
 }
 
 
-#mark_boards(\@boards, 7);
-#mark_boards(\@boards, 5);
-#mark_boards(\@boards, 20);
-#mark_boards(\@boards, 19);
-#mark_boards(\@boards, 4);
-
-#mark_boards(\@boards, 2);
-#mark_boards(\@boards, 0);
-#mark_boards(\@boards, 12);
-#mark_boards(\@boards, 3);
-
-#mark_boards(\@boards, 14);
-#mark_boards(\@boards, 16);
-#mark_boards(\@boards, 23);
-#mark_boards(\@boards, 6);
-#mark_boards(\@boards, 7);
-
-#mark_boards(\@boards, 2);
-#mark_boards(\@boards, 11);
-#mark_boards(\@boards, 23);
-#mark_boards(\@boards, 9);
-#mark_boards(\@boards, 4);
-
-#print Dumper $boards[check_boards(\@boards)];
-#print "Found: ", check_boards(\@boards), "\n";;
-
 my $winner = undef;
 my $last_call = undef;
 foreach my $call (@bingo_calls) {
