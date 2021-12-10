@@ -10,7 +10,7 @@ my $board_ranks = 5;
 my $board_files = 5;
 
 my @input = ();
-open (my $input, '<', 'test_input');
+open (my $input, '<', 'input');
 while (my $line = <$input>) { 
   chomp $line;
   #print $line, "\n";
