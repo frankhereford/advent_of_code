@@ -58,19 +58,36 @@ while (1) {
 #print "Found: ", check_boards(\@boards), "\n";;
 
 my $winner = undef;
+my $last_call = undef;
 foreach my $call (@bingo_calls) {
   print "Calling: ", $call, "\n";
+  $last_call = $call;
   mark_boards(\@boards, $call);
   $winner = check_boards(\@boards); 
   print "Winner: ", $winner, "\n" if $winner;
   last if $winner;
 }
 
+#print Dumper $boards[$winner];
 
+print "Score: ", score_board($boards[$winner], $last_call), "\n";
+
+sub score_board {
+  my $board = shift;
+  my $call = shift;
+  my $unfound_sum = 0;
+  for (my $rank = 0; $rank < $board_ranks; $rank++) {
+    for (my $file = 0; $file < $board_files; $file++) {
+      $unfound_sum += $board->[$rank]->[$file]->{'value'} unless $board->[$rank]->[$file]->{'found'};
+    }
+  }
+  return $unfound_sum * $call;
+}
 
 sub check_boards {
   my $boards = shift;
   my @boards = @$boards;
+
   #row search 
   for (my $board = 0; $board < scalar(@boards); $board++) {
     for (my $rank = 0; $rank < $board_ranks; $rank++) {
