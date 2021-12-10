@@ -16,10 +16,6 @@ while (my $line = <$input>) {
 
 close $input;
 
-
-
-
-
 my $bingo_calls = shift @input;
 my @bingo_calls = split(/,/, $bingo_calls);
 
@@ -57,7 +53,6 @@ while (1) {
 #mark_boards(\@boards, 23);
 #mark_boards(\@boards, 9);
 #mark_boards(\@boards, 4);
-
 
 #print Dumper $boards[check_boards(\@boards)];
 #print "Found: ", check_boards(\@boards), "\n";;
