@@ -1,7 +1,10 @@
 #!/usr/bin/perl
 
+
 use strict;
 use Data::Dumper;
+use Storable 'dclone';
+
 
 my $board_ranks = 5;
 my $board_files = 5;
@@ -33,28 +36,50 @@ while (1) {
 
 my $winner = undef;
 my $last_call = undef;
+my $last_results = undef;
+my $final_winning_board = undef;
 foreach my $call (@bingo_calls) {
   print "Calling: ", $call, "\n";
-  $last_call = $call;
   mark_boards(\@boards, $call);
   $winner = check_boards(\@boards); 
-  print Dumper $winner, "\n";
-  <>;
+  #print Dumper $winner, "\n";
+
+  my $winner_copy = dclone $winner;
+
+  foreach my $key (keys(%{$winner})) {
+    #print "Key: ", $key, "\n";
+    delete $winner->{$key} if $last_results->{$key};
+  }
+  if (scalar(keys(%{$winner}))) {
+    print "This rounds first time winner: ", keys(%{$winner}), "\n";
+    $final_winning_board = keys(%{$winner});
+    $last_call = $call;
+    print "Score: ", score_board($boards[$final_winning_board], $call), "\n";
+  }
+  $last_results = $winner_copy;
 }
+
+print "Final Winning Board: ", $final_winning_board, "\n";
+#print Dumper $boards[$final_winning_board], "\n";
+#print "Score: ", score_board($boards[$final_winning_board], $last_call), "\n";
 
 #print Dumper $boards[$winner];
 
-print "Score: ", score_board($boards[$winner], $last_call), "\n";
+#print "Score: ", score_board($boards[$winner], $last_call), "\n";
 
 sub score_board {
   my $board = shift;
+  #print Dumper $board, "\n";
   my $call = shift;
+  print $call, "\n";
   my $unfound_sum = 0;
   for (my $rank = 0; $rank < $board_ranks; $rank++) {
     for (my $file = 0; $file < $board_files; $file++) {
+      #print "Found: ", $board->[$rank]->[$file]->{'found'}, "\n";
       $unfound_sum += $board->[$rank]->[$file]->{'value'} unless $board->[$rank]->[$file]->{'found'};
     }
   }
+  #print "Unfound sum: ", $unfound_sum, "\n";
   return $unfound_sum * $call;
 }
 
