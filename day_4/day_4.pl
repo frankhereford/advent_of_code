@@ -92,21 +92,21 @@ sub check_boards {
       return $board if $found == $board_ranks;
     }
 
-    return $board if (
-      $boards->[$board]->[0]->[0]->{'found'} &&
-      $boards->[$board]->[1]->[1]->{'found'} &&
-      $boards->[$board]->[2]->[2]->{'found'} &&
-      $boards->[$board]->[3]->[3]->{'found'} &&
-      $boards->[$board]->[4]->[4]->{'found'} 
-    );
+    #return $board if (
+      #$boards->[$board]->[0]->[0]->{'found'} &&
+      #$boards->[$board]->[1]->[1]->{'found'} &&
+      #$boards->[$board]->[2]->[2]->{'found'} &&
+      #$boards->[$board]->[3]->[3]->{'found'} &&
+      #$boards->[$board]->[4]->[4]->{'found'} 
+    #);
 
-    return $board if (
-      $boards->[$board]->[4]->[0]->{'found'} &&
-      $boards->[$board]->[3]->[1]->{'found'} &&
-      $boards->[$board]->[2]->[2]->{'found'} &&
-      $boards->[$board]->[1]->[3]->{'found'} &&
-      $boards->[$board]->[0]->[4]->{'found'} 
-    );
+    #return $board if (
+      #$boards->[$board]->[4]->[0]->{'found'} &&
+      #$boards->[$board]->[3]->[1]->{'found'} &&
+      #$boards->[$board]->[2]->[2]->{'found'} &&
+      #$boards->[$board]->[1]->[3]->{'found'} &&
+      #$boards->[$board]->[0]->[4]->{'found'} 
+    #);
 
   }
 }
