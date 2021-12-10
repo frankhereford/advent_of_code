@@ -7,7 +7,7 @@ my $board_ranks = 5;
 my $board_files = 5;
 
 my @input = ();
-open (my $input, '<', 'input');
+open (my $input, '<', 'test_input');
 while (my $line = <$input>) { 
   chomp $line;
   #print $line, "\n";
@@ -64,8 +64,8 @@ foreach my $call (@bingo_calls) {
   $last_call = $call;
   mark_boards(\@boards, $call);
   $winner = check_boards(\@boards); 
-  print "Winner: ", $winner, "\n" if $winner;
-  last if $winner;
+  print Dumper $winner, "\n";
+  <>;
 }
 
 #print Dumper $boards[$winner];
@@ -87,6 +87,7 @@ sub score_board {
 sub check_boards {
   my $boards = shift;
   my @boards = @$boards;
+  my $winners = {};
 
   #row search 
   for (my $board = 0; $board < scalar(@boards); $board++) {
@@ -96,7 +97,8 @@ sub check_boards {
       for (my $file = 0; $file < $board_files; $file++) {
         $found++ if $boards->[$board]->[$rank]->[$file]->{'found'};
       }
-      return $board if $found == $board_ranks;
+      #push(@winners, $board) if $found == $board_ranks;
+      $winners->{$board}++ if $found == $board_ranks;
     }
 
   #file search 
@@ -106,7 +108,8 @@ sub check_boards {
       for (my $rank = 0; $rank < $board_ranks; $rank++) {
         $found++ if $boards->[$board]->[$rank]->[$file]->{'found'};
       }
-      return $board if $found == $board_ranks;
+      #push(@winners, $board) if $found == $board_files;
+      $winners->{$board}++ if $found == $board_files;
     }
 
     #return $board if (
@@ -126,6 +129,7 @@ sub check_boards {
     #);
 
   }
+  return $winners;
 }
 
 sub mark_boards {
