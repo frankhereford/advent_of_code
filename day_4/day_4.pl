@@ -62,13 +62,16 @@ while (1) {
 #print Dumper $boards[check_boards(\@boards)];
 #print "Found: ", check_boards(\@boards), "\n";;
 
+my $winner = undef;
 foreach my $call (@bingo_calls) {
   print "Calling: ", $call, "\n";
   mark_boards(\@boards, $call);
-  my $winner = check_boards(\@boards); 
+  $winner = check_boards(\@boards); 
   print "Winner: ", $winner, "\n" if $winner;
   last if $winner;
 }
+
+
 
 sub check_boards {
   my $boards = shift;
