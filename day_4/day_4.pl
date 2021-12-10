@@ -51,10 +51,14 @@ foreach my $call (@bingo_calls) {
     delete $winner->{$key} if $last_results->{$key};
   }
   if (scalar(keys(%{$winner}))) {
+    print "\n";
+    print " ** \n";
     print "This rounds first time winner: ", keys(%{$winner}), "\n";
     $final_winning_board = keys(%{$winner});
     $last_call = $call;
     print "Score: ", score_board($boards[$final_winning_board], $call), "\n";
+    print " ** \n";
+    print "\n";
   }
   $last_results = $winner_copy;
 }
