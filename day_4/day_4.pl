@@ -28,11 +28,11 @@ my @boards = (&pop_board_off_input(\@input));
 
 for (my $rank = 0; $rank <= $board_ranks; $rank++) { shift @input; } # fast forward one board
 
-my $got_board = 1;
 while (1) {
   my $board = &pop_board_off_input(\@input);
-  for (my $rank = 0; $rank <= $board_ranks; $rank++) { shift @input; } # fast forward one board
   last unless $board;
+  for (my $rank = 0; $rank <= $board_ranks; $rank++) { shift @input; } # fast forward one board
+  #print Dumper $board;
   push @boards, $board;
 }
 
@@ -49,22 +49,31 @@ sub pop_board_off_input {
     #print Dumper \@rank_values;
     for (my $file = 0; $file < $board_files; $file++) {
       #next unless $rank_values[$file];
-      print Dumper \@rank_values;
-      #print $rank_values[$file], "!\n";
-      $board->[$rank]->[$file] = $rank_values[$file];
+      #print int($rank_values[$file]), "!\n";
+      $board->[$rank]->[$file] = {
+        value => int($rank_values[$file]),
+        found => 0,
+      };
     }
   }
 
-  #print Dumper \@boards;
+#print Dumper $board;
 
   my $board_ok = 1;
+  my $zero_count = 0;
   for (my $rank = 0; $rank < $board_ranks; $rank++) {
     for (my $file = 0; $file < $board_files; $file++) {
-      my $value = $board->[$rank]->[$file];
+      my $value = $board->[$rank]->[$file]->{'value'};
+      $zero_count++ unless $value;
       $board_ok = 0 unless $value =~ /\d+/;
     }
-    return $board if $board_ok;
-    return undef;
   }
+
+  #print "\n";
+  #print "Zero count: ", $zero_count, "\n";
+  #print $board_ranks * $board_files, "\n";
+  return undef if $zero_count == $board_ranks * $board_files;
+  return $board if $board_ok;
+  return undef;
 
 }
