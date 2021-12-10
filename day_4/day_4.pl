@@ -30,7 +30,25 @@ while (1) {
   push @boards, $board;
 }
 
+
+mark_boards(\@boards, 7);
+mark_boards(\@boards, 22);
 print Dumper \@boards;
+
+sub mark_boards {
+  my $boards = shift;
+  my $call = shift;
+  my @boards = @$boards;
+  for (my $board = 0; $board < scalar(@boards); $board++) {
+    for (my $rank = 0; $rank < $board_ranks; $rank++) {
+      for (my $file = 0; $file < $board_files; $file++) {
+        my $value = $boards->[$board]->[$rank]->[$file]->{'value'};
+        $boards->[$board]->[$rank]->[$file]->{'found'}++ if $value == $call;
+      }
+    }
+  }
+  return \@boards;
+}
 
 sub pop_board_off_input {
   my $input = shift;
