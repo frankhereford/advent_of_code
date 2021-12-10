@@ -16,6 +16,10 @@ while (my $line = <$input>) {
 
 close $input;
 
+
+
+
+
 my $bingo_calls = shift @input;
 my @bingo_calls = split(/,/, $bingo_calls);
 
@@ -31,16 +35,74 @@ while (1) {
 }
 
 
-mark_boards(\@boards, 7);
-mark_boards(\@boards, 22);
-print Dumper \@boards;
+#mark_boards(\@boards, 7);
+#mark_boards(\@boards, 5);
+#mark_boards(\@boards, 20);
+#mark_boards(\@boards, 19);
+#mark_boards(\@boards, 4);
+
+#mark_boards(\@boards, 2);
+#mark_boards(\@boards, 0);
+#mark_boards(\@boards, 12);
+#mark_boards(\@boards, 3);
+
+#mark_boards(\@boards, 14);
+#mark_boards(\@boards, 16);
+#mark_boards(\@boards, 23);
+#mark_boards(\@boards, 6);
+#mark_boards(\@boards, 7);
+
+#mark_boards(\@boards, 2);
+#mark_boards(\@boards, 11);
+#mark_boards(\@boards, 23);
+#mark_boards(\@boards, 9);
+#mark_boards(\@boards, 4);
+
+
+#print Dumper $boards[check_boards(\@boards)];
+print "Found: ", check_boards(\@boards), "\n";;
 
 sub check_boards {
   my $boards = shift;
   my @boards = @$boards;
+  #row search 
   for (my $board = 0; $board < scalar(@boards); $board++) {
-  }
+    for (my $rank = 0; $rank < $board_ranks; $rank++) {
+      # row search
+      my $found = 0;
+      for (my $file = 0; $file < $board_files; $file++) {
+        $found++ if $boards->[$board]->[$rank]->[$file]->{'found'};
+      }
+      return $board if $found == $board_ranks;
+    }
 
+  #file search 
+    for (my $file = 0; $file < $board_files; $file++) {
+      # row search
+      my $found = 0;
+      for (my $rank = 0; $rank < $board_ranks; $rank++) {
+        $found++ if $boards->[$board]->[$rank]->[$file]->{'found'};
+      }
+      return $board if $found == $board_ranks;
+    }
+
+    return $board if (
+      $boards->[$board]->[0]->[0]->{'found'} &&
+      $boards->[$board]->[1]->[1]->{'found'} &&
+      $boards->[$board]->[2]->[2]->{'found'} &&
+      $boards->[$board]->[3]->[3]->{'found'} &&
+      $boards->[$board]->[4]->[4]->{'found'} 
+    );
+
+    return $board if (
+      $boards->[$board]->[4]->[0]->{'found'} &&
+      $boards->[$board]->[3]->[1]->{'found'} &&
+      $boards->[$board]->[2]->[2]->{'found'} &&
+      $boards->[$board]->[1]->[3]->{'found'} &&
+      $boards->[$board]->[0]->[4]->{'found'} 
+    );
+
+  }
 }
 
 sub mark_boards {
