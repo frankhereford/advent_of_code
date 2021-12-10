@@ -35,7 +35,6 @@ while (1) {
 
 
 my $winner = undef;
-my $last_call = undef;
 my $last_results = undef;
 my $final_winning_board = undef;
 foreach my $call (@bingo_calls) {
@@ -54,8 +53,8 @@ foreach my $call (@bingo_calls) {
     print "\n";
     print " ** \n";
     print "This rounds first time winner: ", keys(%{$winner}), "\n";
-    $final_winning_board = keys(%{$winner});
-    $last_call = $call;
+    $final_winning_board = (keys(%{$winner}))[0];
+    print "Final winning board: ", $final_winning_board, "\n";
     print "Score: ", score_board($boards[$final_winning_board], $call), "\n";
     print " ** \n";
     print "\n";
@@ -63,19 +62,11 @@ foreach my $call (@bingo_calls) {
   $last_results = $winner_copy;
 }
 
-print "Final Winning Board: ", $final_winning_board, "\n";
-#print Dumper $boards[$final_winning_board], "\n";
-#print "Score: ", score_board($boards[$final_winning_board], $last_call), "\n";
-
-#print Dumper $boards[$winner];
-
-#print "Score: ", score_board($boards[$winner], $last_call), "\n";
-
 sub score_board {
   my $board = shift;
   #print Dumper $board, "\n";
   my $call = shift;
-  print $call, "\n";
+  #print $call, "\n";
   my $unfound_sum = 0;
   for (my $rank = 0; $rank < $board_ranks; $rank++) {
     for (my $file = 0; $file < $board_files; $file++) {
@@ -83,7 +74,7 @@ sub score_board {
       $unfound_sum += $board->[$rank]->[$file]->{'value'} unless $board->[$rank]->[$file]->{'found'};
     }
   }
-  #print "Unfound sum: ", $unfound_sum, "\n";
+  print "Unfound sum: ", $unfound_sum, "\n";
   return $unfound_sum * $call;
 }
 
