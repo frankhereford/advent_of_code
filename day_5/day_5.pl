@@ -15,7 +15,21 @@ close $input;
 foreach my $input_line (@input) {
   $input_line =~ /(\d+),(\d+) -> (\d+),(\d+)/;
   my $line = [$1, $2, $3, $4];
-  next unless ($line->[0] == $line->[2] || $line->[1] == $line->[3]);
+  next unless ($line->[0] == $line->[2] || $line->[1] == $line->[3]); # horizontal lines only
   print $input_line, "\n";
   #print Dumper $line;
+
+  if ($line->[0] == $line->[2]) { # x value is the same
+    my $small_y = $line->[1] < $line->[3] ? $line->[1] : $line->[3];
+    my $big_y   = $line->[1] > $line->[3] ? $line->[1] : $line->[3];
+    print "Small Y: ", $small_y, "; Big Y: ", $big_y, "\n";
+  }
+
+  if ($line->[1] == $line->[3]) { # x value is the same
+    my $small_x = $line->[0] < $line->[2] ? $line->[0] : $line->[2];
+    my $big_x   = $line->[0] > $line->[2] ? $line->[0] : $line->[2];
+    print "Small X: ", $small_x, "; Big X: ", $big_x, "\n";
+  }
+
+
 }
