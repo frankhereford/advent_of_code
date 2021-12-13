@@ -52,5 +52,13 @@ foreach my $input_line (@input) {
 
 print "Largest X: ", $largest_x, "; Largest Y: ", $largest_y, "\n";
 
+my $scary_vents = 0;
+for (my $x = 0; $x <= $largest_x; $x++) {
+  for (my $y = 0; $y <= $largest_y; $y++) {
+    $scary_vents++ if $floor->[$x]->[$y] >= 2;
+  }
+}
+
 #print Dumper $floor, "\n";
 
+print "Scary Vents: ", $scary_vents, "\n";
