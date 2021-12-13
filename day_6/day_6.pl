@@ -32,9 +32,10 @@ while (1) {
 
   print "Day ", $day, "\n";
   #for (my $index = 0; $index < scalar(@fish); $index++) { print $index, ": ", $fish[$index], "\n"; }
-  print join(",", @fish), "\n";
+  #print join(",", @fish), "\n";
   print scalar(@fish), "\n";
   print "\n";
 
-  if ($day == 18 || $day == 80) { <>; }
+  #if ($day == 18 || $day == 80) { <>; }
+  if ($day == 256) { <>; }
 }
