@@ -48,7 +48,37 @@ foreach my $input_line (@input) {
   } else {
     my $slope = ($line->[3] - $line->[1]) / ($line->[2] - $line->[0]);
     print "Slope: ", $slope, "\n";
+    print $line->[0], ", ", $line->[1], " => ", $line->[2], ", ", $line->[3], "\n";
+
+    my $small_x = 0;
+    my $big_x = 0;
+    my $initial_y = 0;
+    if ($line->[0] < $line->[2]) {
+      $small_x = $line->[0];
+      $big_x = $line->[2];
+      $initial_y = $line->[1];
+    } else {
+      $small_x = $line->[2];
+      $big_x = $line->[0];
+      $initial_y = $line->[3];
+    }
+    print "Small X: ", $small_x, "\n";
+    print "Big X: ", $big_x, "\n";
+    if ($slope == 1) { # lines that look like this: / 
+      for (my $x = $small_x; $x <= $big_x; $x++) {
+        print "Point: ", $x, ", ", $initial_y, "\n";
+        $floor->[$x]->[$initial_y]++;
+        $initial_y++;
+      }
+    } else { # lines that look like this: \
+      for (my $x = $small_x; $x <= $big_x; $x++) {
+        print "Point: ", $x, ", ", $initial_y, "\n";
+        $floor->[$x]->[$initial_y]++;
+        $initial_y--;
+      }
+    }
   }
+  print "\n";
 }
 
 print "Largest X: ", $largest_x, "; Largest Y: ", $largest_y, "\n";
