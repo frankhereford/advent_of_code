@@ -4,8 +4,8 @@ use strict;
 use Data::Dumper;
 
 my @input = ();
-#open (my $input, '<', 'test_input');
-open (my $input, '<', 'input');
+open (my $input, '<', 'test_input');
+#open (my $input, '<', 'input');
 my $line = <$input>;
 chomp $line;
 close $input;
@@ -36,10 +36,21 @@ for (my $x = $smallest_crab; $x <= $largest_crab; $x++) {
   #print "Trying X: ", $x, "\n";
   my $fuel_used = 0;
   foreach my $crab (@crabs) {
-    $fuel_used += abs($crab - $x);
+    $fuel_used += calc_fuel($crab, $x);
   }
   print "For X = ", $x, ", Fuel Used: ", $fuel_used, "\n";
   $results->{$x} = $fuel_used;
+}
+
+sub calc_fuel {
+  my $start = shift;
+  my $end = shift;
+  my $delta = abs($start - $end);
+  my $total_fuel = 0;
+  for (my $x = 1; $x <= $delta; $x++) {
+    $total_fuel += $x;
+  }
+  return $total_fuel;
 }
 
 print "\n";
