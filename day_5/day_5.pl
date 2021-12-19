@@ -21,7 +21,7 @@ my $largest_y = 0;
 foreach my $input_line (@input) {
   $input_line =~ /(\d+),(\d+) -> (\d+),(\d+)/;
   my $line = [$1, $2, $3, $4];
-  next unless ($line->[0] == $line->[2] || $line->[1] == $line->[3]); # horizontal lines only
+  #next unless ($line->[0] == $line->[2] || $line->[1] == $line->[3]); # horizontal or vertical lines only
   #print $input_line, "\n";
   #print Dumper $line;
 
@@ -35,9 +35,7 @@ foreach my $input_line (@input) {
     for (my $y = $small_y; $y <= $big_y; $y++) {
       $floor->[$line->[0]]->[$y]++;
     }
-  }
-
-  if ($line->[1] == $line->[3]) { # y value is the same
+  } elsif ($line->[1] == $line->[3]) { # y value is the same
     my $small_x = $line->[0] < $line->[2] ? $line->[0] : $line->[2];
     my $big_x   = $line->[0] > $line->[2] ? $line->[0] : $line->[2];
     #print "Small X: ", $small_x, "; Big X: ", $big_x, "\n";
@@ -47,6 +45,9 @@ foreach my $input_line (@input) {
     for (my $x = $small_x; $x <= $big_x; $x++) {
       $floor->[$x]->[$line->[1]]++;
     }
+  } else {
+    my $slope = ($line->[3] - $line->[1]) / ($line->[2] - $line->[0]);
+    print "Slope: ", $slope, "\n";
   }
 }
 
