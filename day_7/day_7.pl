@@ -4,8 +4,8 @@ use strict;
 use Data::Dumper;
 
 my @input = ();
-open (my $input, '<', 'test_input');
-#open (my $input, '<', 'input');
+#open (my $input, '<', 'test_input');
+open (my $input, '<', 'input');
 my $line = <$input>;
 chomp $line;
 close $input;
