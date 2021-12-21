@@ -23,10 +23,11 @@ my $holes = setup_holes($number_of_holes);
 while (1) {
   my $guess = 1;
   print "Turn #", $number_of_peeks + 1, "; Let's peek in hole index ", $guess, "\n";
-  print Dumper $holes;
+  #print Dumper $holes;
   $holes = peek($guess, $holes);
+  print "\nHere's what the holes look like now after that peek:\n";
   print Dumper $holes;
-  print "\n\n";
+  print "\n---- New Turn ------\n\n";
   #<>;
 }
 
