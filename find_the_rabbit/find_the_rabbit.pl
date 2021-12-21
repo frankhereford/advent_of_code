@@ -15,13 +15,24 @@ https://youtu.be/XEt09iK8IXs?t=1266
 # the trick to this is going to be to track the even-ness of the presumed location of the rabbit, 
 # because that value will toggle back and forth on every failed peek
 
+# parameters
+my $number_of_holes = $ARGV[0];
+
+# state
 my $number_of_peeks = 0;
-my $number_of_holes = 20;
 
 my $holes = setup_holes($number_of_holes);
 
 while (1) {
-  my $guess = 1;
+  # <algorithem>
+  my $guess = 1; 
+  # </algorithem>
+
+
+
+
+
+
   print "Turn #", $number_of_peeks + 1, "; Let's peek in hole index ", $guess, "\n";
   #print Dumper $holes;
   $holes = peek($guess, $holes);
