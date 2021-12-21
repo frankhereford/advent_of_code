@@ -15,8 +15,51 @@ https://youtu.be/XEt09iK8IXs?t=1266
 # the trick to this is going to be to track the even-ness of the presumed location of the rabbit, 
 # because that value will toggle back and forth on every failed peek
 
-my $holes = setup_holes(3);
-print Dumper $holes;
+my $number_of_peeks = 0;
+my $number_of_holes = 3;
+
+my $holes = setup_holes($number_of_holes);
+
+while (1) {
+  print "Turn #: ", $number_of_peeks, "\n";
+  print Dumper $holes;
+  $holes = peek(1, $holes);
+  print Dumper $holes;
+  print "\n\n";
+  <>;
+}
+
+
+sub peek {
+  my $guess = shift;
+  my $holes = shift;
+  $number_of_peeks++;
+  if ($holes->[$guess]) {
+    print "You found the rabbit in hole index number ", $guess, " in ", $number_of_peeks, " peeks.\n";
+    exit;
+  }
+  for (my $x = 0; $x < $number_of_holes; $x++) {
+    if ($holes->[$x]) {
+      print "The rabbit was in hole index ", $x, ".\n";
+      if ($x == 0) { # the rabbit can only move right
+        $holes->[$x] = 0;
+        $holes->[$x+1] = 1;
+      } elsif ($x == ($number_of_holes - 1)) { # the rabbit can only move left
+        $holes->[$number_of_holes - 1] = 0;
+        $holes->[$number_of_holes - 2] = 1;
+      }
+      else {
+        $holes->[$x] = 0;
+        if (rand() > .5) {
+          $holes->[$x + 1] = 1;
+        } else {
+          $holes->[$x - 1] = 1;
+        }
+      }
+      return $holes;
+    }
+  }
+}
 
 sub setup_holes {
   my $number_of_holes = shift;
