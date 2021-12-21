@@ -12,21 +12,26 @@ https://youtu.be/XEt09iK8IXs?t=1266
 * Bonus points for discovering the worst case senario in terms of hole-peeks for 100 holes.
 =cut
 
-# the trick to this is going to be to track the even-ness of the presumed location of the rabbit, 
-# because that value will toggle back and forth on every failed peek
 
 # parameters
 my $number_of_holes = $ARGV[0];
 
-# state
+# state of the problem
 my $number_of_peeks = 0;
 
 my $holes = setup_holes($number_of_holes);
 
+# state of the algorithm
+$in_even = 0;
+
 while (1) {
-  # <algorithem>
+  # <algorithm>
+
+  # the trick to this is going to be to track the even-ness of the presumed location of the rabbit, 
+  # because that value will toggle back and forth on every failed peek
   my $guess = 1; 
-  # </algorithem>
+
+  # </algorithm>
 
 
 
