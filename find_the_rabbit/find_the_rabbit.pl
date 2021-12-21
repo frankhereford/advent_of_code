@@ -9,3 +9,10 @@ use strict;
 * Bonus points for discovering the worst case senario in terms of hole-peeks for 100 holes.
 =cut
 
+sub find_the_rabbit {
+  my $number_of_holes = shift;
+  # the trick to this is going to be to track the even-ness of the presumed location of the rabbit, 
+  # because that value will toggle back and forth on every failed peek
+
+  
+}
