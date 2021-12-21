@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 
 use strict;
+use Data::Dumper;
 
 =cut
 https://youtu.be/XEt09iK8IXs?t=1266
@@ -11,10 +12,24 @@ https://youtu.be/XEt09iK8IXs?t=1266
 * Bonus points for discovering the worst case senario in terms of hole-peeks for 100 holes.
 =cut
 
-sub find_the_rabbit {
+# the trick to this is going to be to track the even-ness of the presumed location of the rabbit, 
+# because that value will toggle back and forth on every failed peek
+
+my $holes = setup_holes(3);
+print Dumper $holes;
+
+sub setup_holes {
   my $number_of_holes = shift;
-  # the trick to this is going to be to track the even-ness of the presumed location of the rabbit, 
-  # because that value will toggle back and forth on every failed peek
 
+  print "Solving for ", $number_of_holes, " holes.\n";
 
+  my @holes = ();
+  for (my $x = 0; $x < $number_of_holes; $x++) {
+    $holes[$x] = 0;
+  }
+
+  my $hole_with_rabbit = int(rand($number_of_holes));
+  $holes[$hole_with_rabbit] = 1;
+
+  return \@holes;
 }
