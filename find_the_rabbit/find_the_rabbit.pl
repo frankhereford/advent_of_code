@@ -60,12 +60,12 @@ while (1) {
     if ($number_of_peeks % 2) { # remember that turns are one indexed!
       print "Non-initial even turn\n";
       # we're on a non-initial, even turn iteration
-      $guess = 0;
+      $guess = $last_even_guess + 2;
       $last_even_guess = $guess;
     } else { 
       print "Non-initial odd turn\n";
       # we're on an non-initial, odd turn iteration
-      $guess = 0;
+      $guess = $last_odd_guess - 2;
       $last_odd_guess = $guess;
     }
   }
