@@ -51,11 +51,11 @@ while (1) {
   # * zero index everything, 5 holes is an *EVEN* number of holes.
 
 
-  if ($in_even_hole) { print color('magenta'); } else { print color('yellow'); }
+  if ($in_even_hole) { print color('yellow'); } else { print color('magenta'); }
   print "We currently believe the rabbit is in an ", $in_even_hole ? 'even' : 'odd', " hole.\n";
   print color('reset');
 
-  my $guess = undef;
+  my $guess = 0;
 
 
 
@@ -77,14 +77,19 @@ while (1) {
 
 
 
-  print "Turn #", $number_of_peeks, "; Let's peek in hole index ", $guess, "\n";
+  if ($number_of_peeks) { print color('magenta'); } else { print color('yellow'); }
+  print "Turn #", $number_of_peeks, "\n";
+  print color('reset');
+
+  if ($guess) { print color('magenta'); } else { print color('yellow'); }
+  print "Let's peek in hole index ", $guess, ".\n";
   #print Dumper $holes;
   $holes = peek($guess, $holes);
   print color('cyan');
   print "\nHere's what the holes look like now after that peek:\n";
   print Dumper $holes;
   print color('reset');
-  #<STDIN>;
+  <STDIN>;
 }
 
 
@@ -100,7 +105,9 @@ sub peek {
   }
   for (my $x = 0; $x < $number_of_holes; $x++) {
     if ($holes->[$x]) {
+      if ($x % 2) { print color('magenta'); } else { print color('yellow'); }
       print "The rabbit was in hole index ", $x, ".\n";
+      print color('reset');
       if ($x == 0) { # the rabbit can only move right
         $holes->[$x] = 0;
         $holes->[$x+1] = 1;
@@ -124,7 +131,9 @@ sub peek {
 sub setup_holes {
   my $number_of_holes = shift;
 
-  print "Solving for ", $number_of_holes, " holes.\n";
+  if ($number_of_holes) { print color('yellow'); } else { print color('magenta'); }
+  print "Solving for ", $number_of_holes - 1, " holes, zero indexed.\n";
+  print color('reset');
 
   my @holes = ();
   for (my $x = 0; $x < $number_of_holes; $x++) {
