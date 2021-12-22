@@ -29,6 +29,7 @@ my $last_odd_guess = undef;
 
 while (1) {
   print "\n---- New Turn ------\n\n";
+
   # <algorithm>
 
   # the trick to this is going to be to track the evenness of the presumed location of the rabbit, 
