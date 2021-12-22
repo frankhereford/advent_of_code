@@ -82,6 +82,9 @@ while (1) {
     if ($in_even_hole) { $in_even_hole--; } # we're not really going to use this variable are we
     else { $in_even_hole++; }
 
+    $last_even_guess = -1;
+    $last_odd_guess = $number_of_holes + 1;
+    next;
   }
 
   $last_guess = $guess;
