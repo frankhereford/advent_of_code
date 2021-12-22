@@ -21,9 +21,11 @@ my $number_of_peeks = 0;
 my $holes = setup_holes($number_of_holes);
 
 # state of the algorithm
-my $is_not_initial_guess = 0;
 my $in_even_hole = 0;
+
 my $last_guess = undef;
+my $last_even_guess = undef;
+my $last_odd_guess = undef;
 
 while (1) {
   # <algorithm>
@@ -33,20 +35,34 @@ while (1) {
 
   # expanding on the evenness idea: what if we track from one side of the holes on even guess
   # iteration counts and from the other side on odd guesses?
-  # this is awkward for an even number of holes? 
+  # this is awkward for an even number of holes?  let's just go with an odd number of holes for now
 
   print "We currently believe the rabbit is in an ", $in_even_hole ? 'even' : 'odd', " hole.\n";
 
   my $guess = undef;
-  if (!$is_not_initial_guess) {  # these initial state things are always awkward
-    $is_not_initial_guess++;
-    $guess = int($number_of_holes / 2);
-    unless ($guess % 2) { # guess is even
-      $guess--; # shift one to the right, make it odd
-    }
-  } else { # not initial guess
+
+  if (!$number_of_peeks) { # initial guess
+    # odd turn number, track from the right
+    print "Initial odd turn\n";
+    $guess = $number_of_holes; # assuming we have an odd number of holes
+    $last_odd_guess = $guess;
+  } elsif ($number_of_peeks == 1) { 
+    # initial even guess, track from the left
+    print "Initial even turn\n";
     $guess = 0;
+    $last_even_guess = $guess;
+  } else { # not initial guess
+    if ($number_of_peeks % 2) { 
+      print "Non-initial even turn\n";
+      # we're on a non-initial, even turn iteration
+      $guess = 0;
+    } else { 
+      print "Non-initial odd turn\n";
+      # we're on an non-initial, odd turn iteration
+      $guess = 0;
+    }
   }
+
 
   $last_guess = $guess;
 
@@ -119,3 +135,9 @@ sub setup_holes {
 
   return \@holes;
 }
+
+
+    #$guess = int($number_of_holes / 2);
+    #unless ($guess % 2) { # guess is even
+      #$guess--; # shift one to the right, make it odd
+    #}
