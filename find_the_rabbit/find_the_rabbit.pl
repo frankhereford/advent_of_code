@@ -37,6 +37,11 @@ while (1) {
   # iteration counts and from the other side on odd guesses?
   # this is awkward for an even number of holes?  let's just go with an odd number of holes for now
 
+  # under this system, you track from both sides on alternating turns; if both trackers get
+  # to the other side of the holes, the initial assumption of rabbit hole evenness was wrong, 
+  # toggle it, and track from both sides. This should find the rabbit for odd numbers of holes, and
+  # if there are an even number of holes, then the rabbit is in the last hole.
+
   print "We currently believe the rabbit is in an ", $in_even_hole ? 'even' : 'odd', " hole.\n";
 
   my $guess = undef;
