@@ -91,6 +91,9 @@ sub setup_holes {
 
   my $hole_with_rabbit = int(rand($number_of_holes));
   $holes[$hole_with_rabbit] = 1;
+  
+  print "Initial state of holes:\n";
+  print Dumper \@holes;
 
   return \@holes;
 }
