@@ -28,6 +28,7 @@ my $last_even_guess = undef;
 my $last_odd_guess = undef;
 
 while (1) {
+  print "\n---- New Turn ------\n\n";
   # <algorithm>
 
   # the trick to this is going to be to track the evenness of the presumed location of the rabbit, 
@@ -87,7 +88,6 @@ while (1) {
   $holes = peek($guess, $holes);
   print "\nHere's what the holes look like now after that peek:\n";
   print Dumper $holes;
-  print "\n---- New Turn ------\n\n";
   #<>;
 }
 
