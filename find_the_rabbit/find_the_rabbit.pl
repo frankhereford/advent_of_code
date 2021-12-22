@@ -57,7 +57,7 @@ while (1) {
     $guess = 0;
     $last_even_guess = $guess;
   } else { # not initial guess
-    if ($number_of_peeks % 2) { 
+    if ($number_of_peeks % 2) { # remember that turns are one indexed!
       print "Non-initial even turn\n";
       # we're on a non-initial, even turn iteration
       $guess = 0;
