@@ -43,8 +43,8 @@ while (1) {
     $guess = 0;
   }
 
-  if ($in_even_hole) { $in_even_hole--;}
-  else { $in_even_hole++;}
+  if ($in_even_hole) { $in_even_hole--; }
+  else { $in_even_hole++; }
   # </algorithm>
 
 
