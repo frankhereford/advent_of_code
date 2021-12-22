@@ -30,7 +30,7 @@ my $last_odd_guess = undef;
 while (1) {
   # <algorithm>
 
-  # the trick to this is going to be to track the even-ness of the presumed location of the rabbit, 
+  # the trick to this is going to be to track the evenness of the presumed location of the rabbit, 
   # because that value will toggle back and forth on every failed peek
 
   # expanding on the evenness idea: what if we track from one side of the holes on even guess
