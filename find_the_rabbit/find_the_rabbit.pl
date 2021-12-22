@@ -44,6 +44,10 @@ while (1) {
   # toggle the assumption, and track again from both sides. This should find the rabbit for odd numbers of holes, and
   # if there are an even number of holes, then the rabbit is in the last hole.
 
+  # observations on the fundemental flaws of this implementation:
+  # * zero index everything, 5 holes is an *EVEN* number of holes.
+
+
   print "We currently believe the rabbit is in an ", $in_even_hole ? 'even' : 'odd', " hole.\n";
 
   my $guess = undef;
@@ -82,9 +86,9 @@ while (1) {
   # if non-initial odd turn and guess == -1 -- this happens first
   # if non-initial even turn and guess == number_of_holes + 1
 
-  if ($number_of_holes % 2) { # same tricky thing; i think it's clear that i made a mistake early on that i'm living with
+  if ($number_of_peeks % 2 && $number_of_holes % 2) { # same tricky thing; i think it's clear that i made a mistake early on that i'm living with
     # odd number of holes
-    if ($number_of_peeks && $guess == -1) {
+    if ($number_of_peeks && $guess == $number_of_holes + 1) {
       # we're done with the first pass, and if we got here, our assumption about the rabbit evenness is wrong
       print "Here is where we turn around\n";
 
