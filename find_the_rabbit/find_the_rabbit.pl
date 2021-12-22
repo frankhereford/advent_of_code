@@ -82,9 +82,15 @@ while (1) {
     if ($in_even_hole) { $in_even_hole--; } # we're not really going to use this variable are we
     else { $in_even_hole++; }
 
+    # these become the worst named variables ever at this point
     $last_even_guess = -1;
     $last_odd_guess = $number_of_holes + 1;
     next;
+  }
+
+  if ($number_of_peeks >= $number_of_holes * 2) {
+    print "We're past \$number_of_holes * 2 ...";
+    <STDIN>;
   }
 
   $last_guess = $guess;
@@ -103,7 +109,7 @@ while (1) {
   $holes = peek($guess, $holes);
   print "\nHere's what the holes look like now after that peek:\n";
   print Dumper $holes;
-  <STDIN>;
+  #<STDIN>;
 }
 
 
