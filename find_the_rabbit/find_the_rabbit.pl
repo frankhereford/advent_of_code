@@ -72,6 +72,9 @@ while (1) {
     }
   }
 
+  # if non-initial odd turn and guess == -1 -- this happens first
+  # if non-initial even turn and guess == number_of_holes + 1
+
 
   $last_guess = $guess;
 
@@ -89,7 +92,7 @@ while (1) {
   $holes = peek($guess, $holes);
   print "\nHere's what the holes look like now after that peek:\n";
   print Dumper $holes;
-  #<>;
+  <STDIN>;
 }
 
 
