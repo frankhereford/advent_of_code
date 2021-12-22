@@ -108,6 +108,7 @@ sub setup_holes {
   
   print "Initial state of holes:\n";
   print Dumper \@holes;
+  print "\n";
 
   return \@holes;
 }
