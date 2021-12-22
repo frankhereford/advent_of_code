@@ -29,17 +29,22 @@ while (1) {
 
   # the trick to this is going to be to track the even-ness of the presumed location of the rabbit, 
   # because that value will toggle back and forth on every failed peek
+
+  print "We currently believe the rabbit is in an ", $in_even_hole ? 'even' : 'odd', " hole.\n";
+
   my $guess = undef;
-  if ($is_not_initial_guess) { 
+  if (!$is_not_initial_guess) {  # these initial state things are always awkward
     $is_not_initial_guess++;
     $guess = int($number_of_holes / 2);
     unless ($guess % 2) { # guess is even
-      $guess--;
+      $guess--; # shift one to the right, make it odd
     }
-  } else {
+  } else { # not initial guess
     $guess = 0;
   }
 
+  if ($in_even_hole) { $in_even_hole--;}
+  else { $in_even_hole++;}
   # </algorithm>
 
 
