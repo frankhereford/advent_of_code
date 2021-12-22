@@ -56,10 +56,12 @@ while (1) {
       print "Non-initial even turn\n";
       # we're on a non-initial, even turn iteration
       $guess = 0;
+      $last_odd_guess = $guess;
     } else { 
       print "Non-initial odd turn\n";
       # we're on an non-initial, odd turn iteration
       $guess = 0;
+      $last_even_guess = $guess;
     }
   }
 
