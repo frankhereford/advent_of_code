@@ -22,14 +22,24 @@ my $number_of_peeks = 0;
 my $holes = setup_holes($number_of_holes);
 
 # state of the algorithm
-$in_even = 0;
+my $is_not_initial_guess = 0;
+my $in_even_hole = 0;
 
 while (1) {
   # <algorithm>
 
   # the trick to this is going to be to track the even-ness of the presumed location of the rabbit, 
   # because that value will toggle back and forth on every failed peek
-  my $guess = 1; 
+  my $guess = undef;
+  if ($is_not_initial_guess) { 
+    $is_not_initial_guess++;
+    $guess = int($number_of_holes / 2);
+    unless ($guess % 2) { # guess is even
+      $guess--;
+    }
+  } else {
+    $guess = 0;
+  }
 
   # </algorithm>
 
