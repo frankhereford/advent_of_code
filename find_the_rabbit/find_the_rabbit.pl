@@ -18,7 +18,6 @@ my $number_of_holes = $ARGV[0];
 
 # state of the problem
 my $number_of_peeks = 0;
-
 my $holes = setup_holes($number_of_holes);
 
 # state of the algorithm
