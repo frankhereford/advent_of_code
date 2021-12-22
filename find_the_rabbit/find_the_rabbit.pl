@@ -2,6 +2,7 @@
 
 use strict;
 use Data::Dumper;
+use Term::ANSIColor;
 
 =cut
 https://youtu.be/XEt09iK8IXs?t=1266
@@ -28,7 +29,9 @@ my $last_even_guess = undef;
 my $last_odd_guess = undef;
 
 while (1) {
-  print "\n---- New Turn ------\n\n";
+  print color('green');
+  print "\n---- New Turn ----\n\n";
+  print color('reset');
 
   # <algorithm>
 
@@ -48,14 +51,18 @@ while (1) {
   # * zero index everything, 5 holes is an *EVEN* number of holes.
 
 
+  if ($in_even_hole) { print color('magenta'); } else { print color('yellow'); }
   print "We currently believe the rabbit is in an ", $in_even_hole ? 'even' : 'odd', " hole.\n";
+  print color('reset');
 
   my $guess = undef;
 
 
 
   if ($number_of_peeks >= $number_of_holes * 2) {
+    print color('red');
     print "We're past \$number_of_holes * 2 ...";
+    print color('reset');
     <STDIN>;
   }
 
@@ -70,11 +77,13 @@ while (1) {
 
 
 
-  print "Turn #", $number_of_peeks + 1, "; Let's peek in hole index ", $guess, "\n";
+  print "Turn #", $number_of_peeks, "; Let's peek in hole index ", $guess, "\n";
   #print Dumper $holes;
   $holes = peek($guess, $holes);
+  print color('cyan');
   print "\nHere's what the holes look like now after that peek:\n";
   print Dumper $holes;
+  print color('reset');
   #<STDIN>;
 }
 
@@ -84,7 +93,9 @@ sub peek {
   my $holes = shift;
   $number_of_peeks++;
   if ($holes->[$guess]) {
+    print color('green');
     print "You found the rabbit in hole index number ", $guess, " in ", $number_of_peeks, " peeks.\n";
+    print color('reset');
     exit;
   }
   for (my $x = 0; $x < $number_of_holes; $x++) {
@@ -123,9 +134,11 @@ sub setup_holes {
   my $hole_with_rabbit = int(rand($number_of_holes));
   $holes[$hole_with_rabbit] = 1;
   
+  print color('cyan');
   print "Initial state of holes:\n";
   print Dumper \@holes;
   print "\n";
+  print color('reset');
 
   return \@holes;
 }
