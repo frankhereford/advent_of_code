@@ -77,7 +77,7 @@ while (1) {
 
   if ($number_of_peeks && $guess == -1) {
     # we're done with the first pass, and if we got here, our assumption about the rabbit evenness is wrong
-    print "Here is where we turn around\n"
+    print "Here is where we turn around\n";
 
     if ($in_even_hole) { $in_even_hole--; } # we're not really going to use this variable are we
     else { $in_even_hole++; }
