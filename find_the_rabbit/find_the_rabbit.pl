@@ -158,10 +158,10 @@ sub display_hole_state {
       print '🐰';
     }
     else {
-      print '🕳️';
-      print ' ';
+      print '🕳️ ';
     }
   }
+  print "\n";
   print color('reset');
 }
 
