@@ -16,10 +16,13 @@ https://youtu.be/XEt09iK8IXs?t=1266
 
 # parameters
 my $number_of_holes = $ARGV[0];
+my $recent_lookback_length = 3;
 
 # state of the problem
 my $number_of_peeks = 0;
 my $holes = setup_holes($number_of_holes);
+my @recent_even_guesses = (undef) x $recent_lookback_length;
+my @recent_odd_guesses = (undef) x $recent_lookback_length;
 
 # state of the algorithm
 my $in_even_hole = 0;
@@ -55,7 +58,7 @@ while (1) {
   print "We currently believe the rabbit is in an ", $in_even_hole ? 'even' : 'odd', " hole.\n";
   print color('reset');
 
-  my $guess = 41;
+  my $guess = 3;
 
   if (!$number_of_peeks) { # initial guess
     print color('yellow');
@@ -171,9 +174,3 @@ sub setup_holes {
 
   return \@holes;
 }
-
-
-    #$guess = int($number_of_holes / 2);
-    #unless ($guess % 2) { # guess is even
-      #$guess--; # shift one to the right, make it odd
-    #}
