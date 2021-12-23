@@ -114,6 +114,19 @@ while (1) {
 sub peek {
   my $guess = shift;
   my $holes = shift;
+
+  if ($number_of_peeks % 2) { 
+    # odd peek_number
+    unshift @recent_odd_guesses, $guess;
+    pop @recent_odd_guesses;
+  } else {
+    # even peek number
+    unshift @recent_even_guesses, $guess;
+    pop @recent_even_guesses;
+  }
+
+
+
   $number_of_peeks++;
   if ($holes->[$guess]) {
     print color('green');
@@ -124,7 +137,7 @@ sub peek {
   for (my $x = 0; $x < $number_of_holes; $x++) {
     if ($holes->[$x]) {
       if ($x % 2) { print color('magenta'); } else { print color('yellow'); }
-      print "The rabbit was in hole index ", $x, ".\n";
+      print "The rabbit was in hole index ", $x, ". It now moves.\n";
       print color('reset');
       if ($x == 0) { # the rabbit can only move right
         $holes->[$x] = 0;
@@ -150,9 +163,7 @@ sub display_hole_state {
   my $holes = shift;
   print color('cyan');
   print "\nHere's the state of the holes:\n";
-  #foreach my $hole (@$holes) {
-    #print $hole;
-  #}
+  print color('reset');
   for (my $x; $x < scalar(@$holes); $x++) {
     if ($holes->[$x]) {
       print '🐰';
@@ -160,9 +171,13 @@ sub display_hole_state {
     else {
       print '🕳️ ';
     }
+    print ' ';
   }
   print "\n";
-  print color('reset');
+  #for (my $x; $x < scalar(@recent_even_guesses); $x++) {
+    #print $recent_even_guesses[$x];
+    #print ' ';
+  #}
 }
 
 sub setup_holes {
