@@ -16,7 +16,7 @@ https://youtu.be/XEt09iK8IXs?t=1266
 
 # parameters
 my $number_of_holes = $ARGV[0];
-my $recent_lookback_length = 3;
+my $recent_lookback_length = 3; # I'm not sure this can be changed without working more on the state printing routine
 
 # state of the problem
 my $number_of_peeks = 0;
@@ -60,7 +60,7 @@ while (1) {
   print "We currently believe the rabbit is in an ", $in_even_hole ? 'even' : 'odd', " hole.\n";
   print color('reset');
 
-  my $guess = 10;
+  my $guess = int(rand($number_of_holes));
 
   if (!$number_of_peeks) { # initial guess
     print color('yellow');
@@ -115,7 +115,7 @@ sub peek {
   my $guess = shift;
   my $holes = shift;
 
-  if ($number_of_peeks % 2) { 
+  if ($guess % 2) { 
     # odd peek_number
     unshift @recent_odd_guesses, $guess;
     pop @recent_odd_guesses;
@@ -174,10 +174,30 @@ sub display_hole_state {
     print ' ';
   }
   print "\n";
+  my @recent_guesses = ('  ') x $number_of_holes;
   #for (my $x; $x < scalar(@recent_even_guesses); $x++) {
-    #print $recent_even_guesses[$x];
-    #print ' ';
-  #}
+  for (my $x = scalar(@recent_even_guesses) - 1; $x >= 0; $x--) {
+    next unless defined($recent_even_guesses[$x]);
+    if ($x == 0) {
+      @recent_guesses[$recent_even_guesses[$x]] = color('yellow') . 'E ' . color('reset');
+    } elsif ($x == 1) {
+      @recent_guesses[$recent_even_guesses[$x]] = color('yellow') . 'e ' . color('reset');
+    } else {
+      @recent_guesses[$recent_even_guesses[$x]] = color('yellow') . '. ' . color('reset');
+    }
+  }
+  #for (my $x; $x < scalar(@recent_odd_guesses); $x++) {
+  for (my $x = scalar(@recent_odd_guesses) - 1; $x >= 0; $x--) {
+    next unless defined($recent_odd_guesses[$x]);
+    if ($x == 0) {
+      @recent_guesses[$recent_odd_guesses[$x]] = color('magenta') . 'O ' . color('reset');
+    } elsif ($x == 1) {
+      @recent_guesses[$recent_odd_guesses[$x]] = color('magenta') . 'o ' . color('reset');
+    } else {
+      @recent_guesses[$recent_odd_guesses[$x]] = color('magenta') . '. ' . color('reset');
+    }
+  }
+  print join(' ', @recent_guesses), "\n";
 }
 
 sub setup_holes {
