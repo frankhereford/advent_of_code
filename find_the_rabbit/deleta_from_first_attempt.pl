@@ -62,3 +62,12 @@
       next;
     }
   }
+
+
+
+
+
+    #$guess = int($number_of_holes / 2);
+    #unless ($guess % 2) { # guess is even
+      #$guess--; # shift one to the right, make it odd
+    #}
