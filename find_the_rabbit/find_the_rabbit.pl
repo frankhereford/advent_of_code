@@ -150,8 +150,17 @@ sub display_hole_state {
   my $holes = shift;
   print color('cyan');
   print "\nHere's the state of the holes:\n";
-  foreach my $hole (@$holes) {
-    print $hole;
+  #foreach my $hole (@$holes) {
+    #print $hole;
+  #}
+  for (my $x; $x < scalar(@$holes); $x++) {
+    if ($holes->[$x]) {
+      print '🐰';
+    }
+    else {
+      print '🕳️';
+      print ' ';
+    }
   }
   print color('reset');
 }
