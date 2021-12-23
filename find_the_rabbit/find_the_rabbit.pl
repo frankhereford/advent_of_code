@@ -24,6 +24,8 @@ my $holes = setup_holes($number_of_holes);
 my @recent_even_guesses = (undef) x $recent_lookback_length;
 my @recent_odd_guesses = (undef) x $recent_lookback_length;
 
+display_hole_state($holes);
+
 # state of the algorithm
 my $in_even_hole = 0;
 
@@ -96,10 +98,6 @@ while (1) {
   # </algorithm>
 
 
-
-
-
-
   if ($number_of_peeks) { print color('magenta'); } else { print color('yellow'); }
   print "Turn #", $number_of_peeks, "\n";
   print color('reset');
@@ -108,10 +106,7 @@ while (1) {
   print "Lets peek in hole index ", $guess, ".\n";
   #print Dumper $holes;
   $holes = peek($guess, $holes);
-  print color('cyan');
-  print "\nHere's what the holes look like now after that peek:\n";
-  print Dumper $holes;
-  print color('reset');
+  display_hole_state($holes);
   <STDIN>;
 }
 
@@ -151,6 +146,16 @@ sub peek {
   }
 }
 
+sub display_hole_state {
+  my $holes = shift;
+  print color('cyan');
+  print "\nHere's the state of the holes:\n";
+  foreach my $hole (@$holes) {
+    print $hole;
+  }
+  print color('reset');
+}
+
 sub setup_holes {
   my $number_of_holes = shift;
 
@@ -166,11 +171,5 @@ sub setup_holes {
   my $hole_with_rabbit = int(rand($number_of_holes));
   $holes[$hole_with_rabbit] = 1;
   
-  print color('cyan');
-  print "Initial state of holes:\n";
-  print Dumper \@holes;
-  print "\n";
-  print color('reset');
-
   return \@holes;
 }
