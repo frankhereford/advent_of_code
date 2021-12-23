@@ -60,7 +60,7 @@ while (1) {
   print "We currently believe the rabbit is in an ", $in_even_hole ? 'even' : 'odd', " hole.\n";
   print color('reset');
 
-  my $guess = 3;
+  my $guess = 10;
 
   if (!$number_of_peeks) { # initial guess
     print color('yellow');
@@ -98,7 +98,7 @@ while (1) {
   # </algorithm>
 
 
-  if ($number_of_peeks) { print color('magenta'); } else { print color('yellow'); }
+  if ($number_of_peeks % 2) { print color('magenta'); } else { print color('yellow'); }
   print "Turn #", $number_of_peeks, "\n";
   print color('reset');
 
