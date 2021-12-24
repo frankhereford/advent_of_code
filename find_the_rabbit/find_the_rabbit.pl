@@ -84,7 +84,7 @@ while (1) {
   # this is here to halt the program if we're over expected maximum amount of guesses
   if ($number_of_peeks >= $number_of_holes * 2) {
     print color('red') if $verbose;
-    print "We're past \$number_of_holes * 2 ..." if $verbose;
+    print "We're past \$number_of_holes * 2 ...\n";
     print color('reset') if $verbose;
     <STDIN>;
   }
