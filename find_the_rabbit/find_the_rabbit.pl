@@ -60,25 +60,29 @@ while (1) {
   print "We currently believe the rabbit is in an ", $in_even_hole ? 'even' : 'odd', " hole.\n";
   print color('reset');
 
-  my $guess = int(rand($number_of_holes));
+  my $guess = undef; # int(rand($number_of_holes));
 
   if (!$number_of_peeks) { # initial guess
     print color('yellow');
-    print "Initial even turn, track from the left\n";
+    print "Initial even turn\n"; #, track from the left\n";
     print color('reset');
+    $guess = 0;
   } elsif ($number_of_peeks == 1) { 
     print color('magenta');
-    print "Initial odd turn, track from the right\n";
+    print "Initial odd turn\n"; #, track from the right\n";
     print color('reset');
+    $guess = 1
   } else { # not initial guess
     if ($number_of_peeks % 2) { 
       print color('magenta');
       print "Non-initial odd turn\n";
       print color('reset');
+      $guess = $last_guess + 1;
     } else { 
       print color('yellow');
       print "Non-initial even turn\n";
       print color('reset');
+      $guess = $last_guess + 1;
     }
   }
 
