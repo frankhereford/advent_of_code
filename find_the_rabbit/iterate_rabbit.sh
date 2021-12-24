@@ -1,7 +1,7 @@
 #!/bin/sh
 
 count=0
-while ./find_the_rabbit.pl $1; do
+while ./find_the_rabbit.pl --holes $1; do
    printf '\nRun Count: %d\n' "$count"
    sleep $2
    (( count++ ))
