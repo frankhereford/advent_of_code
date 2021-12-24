@@ -64,29 +64,24 @@ while (1) {
 
   my $guess = undef;
 
-  if (!$number_of_peeks) { # initial guess
-    print color('yellow');
-    print "Initial even turn\n"; #, track from the left\n";
-    print color('reset');
-    $guess = 0;
-  } elsif ($number_of_peeks == 1) { 
-    print color('magenta');
-    print "Initial odd turn\n"; #, track from the right\n";
-    print color('reset');
-    $guess = 1
-  } else { # not initial guess
-    if ($number_of_peeks % 2) { 
+  if ($number_of_peeks % 2) { 
       print color('magenta');
-      print "Non-initial odd turn\n";
+      print "Odd turn\n";
       print color('reset');
-      $guess = $last_guess + 1;
-    } else { 
+  } else {
       print color('yellow');
-      print "Non-initial even turn\n";
+      print "Even turn\n";
       print color('reset');
-      $guess = $last_guess + 1;
-    }
   }
+
+  if (! defined $last_guess) {
+    $guess = 0;
+  } else {
+    $guess = $last_guess + 1;
+  }
+
+
+ 
 
   if ($in_even_hole) { print color('yellow'); } else { print color('magenta'); }
   print "We currently believe the rabbit is in an ", $in_even_hole ? 'even' : 'odd', " hole.\n";
@@ -103,7 +98,7 @@ while (1) {
 
   if ($guess == $number_of_holes) {
     print color('red');
-    print "Turn around!\n";
+    print "\nTurn around!\n";
     print "Take a random, pot-shot guess to toggle rabbit parity.\n";
     print color('reset');
 
@@ -114,6 +109,13 @@ while (1) {
     print color('reset');
 
     $holes = peek($pot_shot_guess, $holes);
+
+
+    print color('red');
+    print "Reset guess to index 0.\n\n";
+    print color('reset');
+
+    display_hole_state($holes);
 
     $guess = 0;
   }
