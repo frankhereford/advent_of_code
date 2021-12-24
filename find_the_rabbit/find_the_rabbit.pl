@@ -50,15 +50,6 @@ while (1) {
   # the trick to this is going to be to track the evenness of the presumed location of the rabbit, 
   # because that value will toggle back and forth on every failed peek
 
-  # expanding on the evenness idea: what if we track from one side of the holes on even guess
-  # iteration counts and from the other side on odd guesses?
-  # this is awkward for an even number of holes?  let's just go with an odd number of holes for now
-
-  # under this system, you track from both sides on alternating turns; if both trackers get
-  # to the other side of the holes, the initial assumption of rabbit hole evenness was wrong, 
-  # toggle the assumption, and track again from both sides. This should find the rabbit for odd numbers of holes, and
-  # if there are an even number of holes, then the rabbit is in the last hole.
-
   # observations on the fundemental flaws of the previous implementation:
   # * zero index everything, 5 holes is an *EVEN* number of holes.
 
