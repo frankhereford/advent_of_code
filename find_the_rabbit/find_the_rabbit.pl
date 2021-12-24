@@ -24,7 +24,7 @@ my $holes = setup_holes($number_of_holes);
 my @recent_even_guesses = (undef) x $recent_lookback_length;
 my @recent_odd_guesses = (undef) x $recent_lookback_length;
 
-display_hole_state($holes);
+#display_hole_state($holes);
 
 # state of the algorithm
 my $in_even_hole = 0;
@@ -35,8 +35,11 @@ my $last_odd_guess = undef;
 
 while (1) {
   print color('green');
-  print "\n---- New Turn ----\n\n";
+  print "\n---- New Turn ----\n";
   print color('reset');
+
+  display_hole_state($holes);
+  print "\n";
 
   # <algorithm>
 
@@ -54,11 +57,6 @@ while (1) {
 
   # observations on the fundemental flaws of the previous implementation:
   # * zero index everything, 5 holes is an *EVEN* number of holes.
-
-
-  if ($in_even_hole) { print color('yellow'); } else { print color('magenta'); }
-  print "We currently believe the rabbit is in an ", $in_even_hole ? 'even' : 'odd', " hole.\n";
-  print color('reset');
 
   my $guess = undef; # int(rand($number_of_holes));
 
@@ -87,6 +85,11 @@ while (1) {
   }
 
 
+  if ($in_even_hole) { print color('yellow'); } else { print color('magenta'); }
+  print "We currently believe the rabbit is in an ", $in_even_hole ? 'even' : 'odd', " hole.\n";
+  print color('reset');
+
+
 
   if ($number_of_peeks >= $number_of_holes * 2) {
     print color('red');
@@ -110,7 +113,6 @@ while (1) {
   print "Lets peek in hole index ", $guess, ".\n";
   #print Dumper $holes;
   $holes = peek($guess, $holes);
-  display_hole_state($holes);
   <STDIN>;
 }
 
