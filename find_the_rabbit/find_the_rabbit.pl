@@ -100,6 +100,24 @@ while (1) {
     <STDIN>;
   }
 
+
+  if ($guess == $number_of_holes) {
+    print color('red');
+    print "Turn around!\n";
+    print "Take a random, pot-shot guess to toggle rabbit parity.\n";
+    print color('reset');
+
+    my $pot_shot_guess = int(rand($number_of_holes));
+
+    if ($pot_shot_guess % 2) { print color('magenta'); } else { print color('yellow'); }
+    print "Lets randomly peek in hole index ", $pot_shot_guess, ".\n";
+    print color('reset');
+
+    $holes = peek($pot_shot_guess, $holes);
+
+    $guess = 0;
+  }
+
   $last_guess = $guess;
 
   if ($in_even_hole) { $in_even_hole--; }
@@ -109,7 +127,7 @@ while (1) {
 
   if ($guess % 2) { print color('magenta'); } else { print color('yellow'); }
   print "Lets peek in hole index ", $guess, ".\n";
-  #print Dumper $holes;
+  print color('reset');
   $holes = peek($guess, $holes);
   <STDIN>;
 }
