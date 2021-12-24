@@ -75,6 +75,7 @@ while (1) {
   print "We currently believe the rabbit is in an ", $in_even_hole ? 'even' : 'odd', " hole.\n";
   print color('reset');
 
+  # this is here to halt the program if we're over expected maximum amount of guesses
   if ($number_of_peeks >= $number_of_holes * 2) {
     print color('red');
     print "We're past \$number_of_holes * 2 ...";
