@@ -174,6 +174,10 @@ sub display_hole_state {
     print ' ';
   }
   print "\n";
+  for (my $x = 0; $x < $number_of_holes; $x++) {
+    printf "%02d ", $x;
+  }
+  print "\n";
   my @recent_guesses = ('  ') x $number_of_holes;
   #for (my $x; $x < scalar(@recent_even_guesses); $x++) {
   for (my $x = scalar(@recent_even_guesses) - 1; $x >= 0; $x--) {
