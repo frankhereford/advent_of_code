@@ -62,7 +62,7 @@ while (1) {
   # observations on the fundemental flaws of the previous implementation:
   # * zero index everything, 5 holes is an *EVEN* number of holes.
 
-  my $guess = undef; # int(rand($number_of_holes));
+  my $guess = undef;
 
   if (!$number_of_peeks) { # initial guess
     print color('yellow');
