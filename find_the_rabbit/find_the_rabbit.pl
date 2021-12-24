@@ -100,7 +100,7 @@ while (1) {
     print color('red');
     print "\nTurn around!\n";
 
-    if (!$number_of_holes % 2) {
+    if (!($number_of_holes % 2)) {
       print "We have an even number of holes, so we need to toggle the rabbit's parity.\n";
       print "Take a random, pot-shot guess to toggle rabbit parity.\n";
       print color('reset');
