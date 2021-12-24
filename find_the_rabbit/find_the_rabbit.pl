@@ -38,6 +38,10 @@ while (1) {
   print "\n---- New Turn ----\n";
   print color('reset');
 
+  if ($number_of_peeks % 2) { print color('magenta'); } else { print color('yellow'); }
+  print "Turn #", $number_of_peeks, "\n";
+  print color('reset');
+
   display_hole_state($holes);
   print "\n";
 
@@ -84,11 +88,9 @@ while (1) {
     }
   }
 
-
   if ($in_even_hole) { print color('yellow'); } else { print color('magenta'); }
   print "We currently believe the rabbit is in an ", $in_even_hole ? 'even' : 'odd', " hole.\n";
   print color('reset');
-
 
 
   if ($number_of_peeks >= $number_of_holes * 2) {
@@ -105,17 +107,12 @@ while (1) {
   # </algorithm>
 
 
-  if ($number_of_peeks % 2) { print color('magenta'); } else { print color('yellow'); }
-  print "Turn #", $number_of_peeks, "\n";
-  print color('reset');
-
   if ($guess % 2) { print color('magenta'); } else { print color('yellow'); }
   print "Lets peek in hole index ", $guess, ".\n";
   #print Dumper $holes;
   $holes = peek($guess, $holes);
   <STDIN>;
 }
-
 
 sub peek {
   my $guess = shift;
@@ -130,8 +127,6 @@ sub peek {
     unshift @recent_even_guesses, $guess;
     pop @recent_even_guesses;
   }
-
-
 
   $number_of_peeks++;
   if ($holes->[$guess]) {
