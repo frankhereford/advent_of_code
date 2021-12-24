@@ -13,7 +13,6 @@ https://youtu.be/XEt09iK8IXs?t=1266
 * Bonus points for discovering the worst case senario in terms of hole-peeks for 100 holes.
 =cut
 
-
 # parameters
 my $number_of_holes = $ARGV[0];
 my $recent_lookback_length = 3; # I'm not sure this can be changed without working more on the state printing routine
@@ -23,8 +22,6 @@ my $number_of_peeks = 0;
 my $holes = setup_holes($number_of_holes);
 my @recent_even_guesses = (undef) x $recent_lookback_length;
 my @recent_odd_guesses = (undef) x $recent_lookback_length;
-
-#display_hole_state($holes);
 
 # state of the algorithm
 my $in_even_hole = 1;
