@@ -3,6 +3,6 @@
 count=0
 while ./find_the_rabbit.pl $1; do
    printf '\nRun Count: %d\n' "$count"
-   sleep 1
+   sleep $2
    (( count++ ))
 done
