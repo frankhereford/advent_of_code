@@ -99,16 +99,20 @@ while (1) {
   if ($guess == $number_of_holes) {
     print color('red');
     print "\nTurn around!\n";
-    print "Take a random, pot-shot guess to toggle rabbit parity.\n";
-    print color('reset');
 
-    my $pot_shot_guess = int(rand($number_of_holes));
+    if (!$number_of_holes % 2) {
+      prin "We have an even number of holes, so we need to toggle the rabbit's parity.\n";
+      print "Take a random, pot-shot guess to toggle rabbit parity.\n";
+      print color('reset');
 
-    if ($pot_shot_guess % 2) { print color('magenta'); } else { print color('yellow'); }
-    print "Lets randomly peek in hole index ", $pot_shot_guess, ".\n";
-    print color('reset');
+      my $pot_shot_guess = int(rand($number_of_holes));
 
-    $holes = peek($pot_shot_guess, $holes);
+      if ($pot_shot_guess % 2) { print color('magenta'); } else { print color('yellow'); }
+      print "Lets randomly peek in hole index ", $pot_shot_guess, ".\n";
+      print color('reset');
+
+      $holes = peek($pot_shot_guess, $holes);
+    }
 
 
     print color('red');
