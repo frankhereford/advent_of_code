@@ -52,7 +52,7 @@ while (1) {
   # toggle the assumption, and track again from both sides. This should find the rabbit for odd numbers of holes, and
   # if there are an even number of holes, then the rabbit is in the last hole.
 
-  # observations on the fundemental flaws of this implementation:
+  # observations on the fundemental flaws of the previous implementation:
   # * zero index everything, 5 holes is an *EVEN* number of holes.
 
 
