@@ -71,13 +71,9 @@ while (1) {
     $guess = $last_guess + 1;
   }
 
-
- 
-
   if ($in_even_hole) { print color('yellow'); } else { print color('magenta'); }
   print "We currently believe the rabbit is in an ", $in_even_hole ? 'even' : 'odd', " hole.\n";
   print color('reset');
-
 
   if ($number_of_peeks >= $number_of_holes * 2) {
     print color('red');
@@ -85,7 +81,6 @@ while (1) {
     print color('reset');
     <STDIN>;
   }
-
 
   if ($guess == $number_of_holes) {
     print color('red');
@@ -104,7 +99,6 @@ while (1) {
 
       $holes = peek($pot_shot_guess, $holes);
     }
-
 
     print color('red');
     print "Reset guess to index 0.\n\n";
@@ -144,12 +138,14 @@ sub peek {
   }
 
   $number_of_peeks++;
+
   if ($holes->[$guess]) {
     print color('green');
     print "You found the rabbit in hole index number ", $guess, " in ", $number_of_peeks, " peeks.\n";
     print color('reset');
     exit;
   }
+
   for (my $x = 0; $x < $number_of_holes; $x++) {
     if ($holes->[$x]) {
       if ($x % 2) { print color('magenta'); } else { print color('yellow'); }
@@ -182,10 +178,10 @@ sub display_hole_state {
   print color('reset');
   for (my $x; $x < scalar(@$holes); $x++) {
     if ($holes->[$x]) {
-      print '🐰';
+      print '🐰'; # two characters wide
     }
     else {
-      print '🕳️ ';
+      print '🕳️ '; # just one character wide
     }
     print ' ';
   }
