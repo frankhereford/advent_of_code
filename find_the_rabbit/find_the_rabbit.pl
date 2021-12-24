@@ -121,7 +121,7 @@ while (1) {
   print "Lets peek in hole index ", $guess, ".\n";
   print color('reset');
   $holes = peek($guess, $holes);
-  #<STDIN>;
+  #<STDIN>; # uncomment this if you want to pause after each turn
 }
 
 sub peek {
