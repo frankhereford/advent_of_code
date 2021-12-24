@@ -27,7 +27,7 @@ my @recent_odd_guesses = (undef) x $recent_lookback_length;
 #display_hole_state($holes);
 
 # state of the algorithm
-my $in_even_hole = 0;
+my $in_even_hole = 1;
 
 my $last_guess = undef;
 my $last_even_guess = undef;
