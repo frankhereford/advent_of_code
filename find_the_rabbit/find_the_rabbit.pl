@@ -129,7 +129,7 @@ while (1) {
   print "Lets peek in hole index ", $guess, ".\n" if $verbose;
   print color('reset') if $verbose;
   $holes = peek($guess, $holes);
-  <STDIN> if $step; # uncomment this if you want to pause after each turn
+  <STDIN> if $step;
 }
 
 sub peek {
@@ -200,7 +200,6 @@ sub display_hole_state {
   }
   print "\n";
   my @recent_guesses = ('  ') x $number_of_holes;
-  #for (my $x; $x < scalar(@recent_even_guesses); $x++) {
   for (my $x = scalar(@recent_even_guesses) - 1; $x >= 0; $x--) {
     next unless defined($recent_even_guesses[$x]);
     if ($x == 0) {
@@ -211,7 +210,6 @@ sub display_hole_state {
       @recent_guesses[$recent_even_guesses[$x]] = color('yellow') . '. ' . color('reset');
     }
   }
-  #for (my $x; $x < scalar(@recent_odd_guesses); $x++) {
   for (my $x = scalar(@recent_odd_guesses) - 1; $x >= 0; $x--) {
     next unless defined($recent_odd_guesses[$x]);
     if ($x == 0) {
