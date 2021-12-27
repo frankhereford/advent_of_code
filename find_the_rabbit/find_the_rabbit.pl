@@ -7,10 +7,12 @@ use Getopt::Long;
 
 my $verbose = 0;
 my $holes = 100;
+my $step = 0;
 
 GetOptions (
   "verbose" => \$verbose,
   "holes=i" => \$holes,
+  "step" => \$step,
   );
 
 =cut
@@ -127,7 +129,7 @@ while (1) {
   print "Lets peek in hole index ", $guess, ".\n" if $verbose;
   print color('reset') if $verbose;
   $holes = peek($guess, $holes);
-  #<STDIN>; # uncomment this if you want to pause after each turn
+  <STDIN> if $step; # uncomment this if you want to pause after each turn
 }
 
 sub peek {
