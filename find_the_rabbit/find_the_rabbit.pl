@@ -229,7 +229,8 @@ sub setup_holes {
   my $number_of_holes = shift;
 
   if ($number_of_holes) { print color('yellow') if $verbose; } else { print color('magenta') if $verbose; }
-  print "Solving for ", $number_of_holes - 1, " holes, zero indexed.\n" if $verbose;
+  #print "Solving for ", $number_of_holes - 1, " holes, zero indexed.\n" if $verbose;
+  print "Solving for ", $number_of_holes, " holes.\n" if $verbose;
   print color('reset') if $verbose;
 
   my @holes = ();
