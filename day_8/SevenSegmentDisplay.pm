@@ -29,6 +29,24 @@ sub _parse_code {
   my $input = shift;
 
   my @letters = split(//, $input);
+  foreach my $letter (@letters) {
+    $self->{'illuminated'}->{$letter} = 1;
+  }
 }
+
+=cut
+
+0: 6
+1: 2*
+2: 5
+3: 5
+4: 4*
+5: 5
+6: 6
+7: 3*
+8: 7*
+9: 6
+
+=cut
 
 1;

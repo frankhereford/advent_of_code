@@ -46,6 +46,6 @@ foreach my $entry (@input) {
   }
 }
 
-#print Dumper \@output_digits;
+print Dumper \@output_digits;
 
 print "Appearences: ", $appearences, "\n";
