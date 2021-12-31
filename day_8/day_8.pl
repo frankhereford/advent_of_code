@@ -9,8 +9,8 @@ use Algorithm::Permute;
 use SevenSegmentDisplay;
 
 my @input = ();
-#open (my $input, '<', 'test_input');
-open (my $input, '<', 'input');
+open (my $input, '<', 'test_input');
+#open (my $input, '<', 'input');
 while (my $line = <$input>) { 
   chomp $line;
   #print $line, "\n";
@@ -21,6 +21,8 @@ close $input;
 my $appearences = 0;
 my @output_digits = ();
 my $permutations = get_permutations();
+
+my $total_total = 0;
 
 foreach my $entry (@input) {
 
@@ -51,38 +53,25 @@ foreach my $entry (@input) {
     if ($valids == 10) {
       #print "Valids: ", $valids, "\n";
       print join('', @$permutation), "\n";
-      #<>;
-    }
-  }
 
-
-  next;
-  last;
-
-  #print Dumper \@displays;
-
-  exit;
-
-  my @outputs = split(/\s/, $outputs);
-  foreach my $output_digit (@outputs) {
-    #print $output_digit, "\n";
-
-    push @output_digits, SevenSegmentDisplay->new({
-      input_code => $output_digit,
-    });
-
-    my $length = length($output_digit);
-    if      ($length == 2) { # digit 1
-      $appearences++;
-    } elsif ($length == 4) { # digit 4
-      $appearences++;
-    } elsif ($length == 3) { # digit 7
-      $appearences++;
-    } elsif ($length == 7) { # digit 8
-      $appearences++;
+      my $number = '';
+      my @answer_digits = split(/\s/, $outputs);
+      foreach my $digit (@answer_digits) {
+        my $ssd = SevenSegmentDisplay->new({
+          input_code => $digit,
+        });
+        $ssd->parse_key($permutation);
+        #print $ssd->get_indended_digit;
+        $number = $number . $ssd->get_indended_digit;
+      }
+      my $int = int($number);
+      print "Yes!: ", $int, "\n";
+      $total_total += $int;
     }
   }
 }
+
+print $total_total, " is the big total.\n";
 
 sub get_permutations {
   my @segments = ('a', 'b', 'c', 'd', 'e', 'f', 'g');

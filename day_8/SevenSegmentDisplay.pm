@@ -121,6 +121,24 @@ sub is_intended_valid {
   return 0;
 }
 
+sub get_indended_digit {
+  my $self = shift;
+  my $intended_code = $self->_get_intended_code;
+  return 0 if $intended_code eq 'abcefg'; # 0
+  return 1 if $intended_code eq 'cf'; # 1
+  return 2 if $intended_code eq 'acdeg'; # 2
+  return 3 if $intended_code eq 'acdfg'; # 3
+  return 4 if $intended_code eq 'bcdf'; # 4
+  return 5 if $intended_code eq 'abdfg'; # 5
+  return 6 if $intended_code eq 'abdefg'; # 6
+  return 7 if $intended_code eq 'acf'; # 7
+  return 8 if $intended_code eq 'abcdefg'; # 8
+  return 9 if $intended_code eq 'abcdfg'; # 9
+  exit;
+}
+
+
+
 =cut
 
 0: 6
