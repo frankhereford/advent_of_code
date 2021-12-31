@@ -51,6 +51,7 @@ sub _parse_code {
   foreach my $letter (@letters) {
     $self->{'illuminated'}->{$letter} = 1;
   }
+  return $self;
 }
 
 sub parse_key {
@@ -64,6 +65,21 @@ sub parse_key {
   $self->{'code'}->{'e'} = $input->[4];
   $self->{'code'}->{'f'} = $input->[5];
   $self->{'code'}->{'g'} = $input->[6];
+  $self->_calc_intended;
+  return $self;
+}
+
+sub _calc_intended { 
+  my $self = shift;
+
+  foreach my $letter (keys %{$self->{illuminated}}) {
+    if ($self->{'illuminated'}->{$letter}) {
+      # this letter is illuminated
+      print $letter, "\n";
+      $self->{'intended'}->{$self->{'code'}->{$letter}} = 1;
+    }
+  }
+  return $self;
 }
 
 =cut
