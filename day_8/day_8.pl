@@ -4,6 +4,7 @@ use strict;
 use Data::Dumper;
 use FindBin;
 use lib $FindBin::Bin;
+#use Algorithm::Permute;
 
 use SevenSegmentDisplay;
 
@@ -46,6 +47,5 @@ foreach my $entry (@input) {
   }
 }
 
-print Dumper \@output_digits;
-
-print "Appearences: ", $appearences, "\n";
+my @configuration = ('a', 'b', 'c', 'd', 'e', 'f', 'g');
+my @permutations = ();
