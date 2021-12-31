@@ -16,6 +16,19 @@ sub new {
       g => 0,
     },
   }, $class;
+
+  exit unless $self->{'input_code'};
+
+  $self->_parse_code($self->{'input_code'});
+
+  return $self;
+}
+
+sub _parse_code {
+  my $self = shift;
+  my $input = shift;
+
+  my @letters = split(//, $input);
 }
 
 1;
