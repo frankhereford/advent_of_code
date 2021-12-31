@@ -9,8 +9,8 @@ use Algorithm::Permute;
 use SevenSegmentDisplay;
 
 my @input = ();
-open (my $input, '<', 'test_input');
-#open (my $input, '<', 'input');
+#open (my $input, '<', 'test_input');
+open (my $input, '<', 'input');
 while (my $line = <$input>) { 
   chomp $line;
   #print $line, "\n";
@@ -30,21 +30,34 @@ foreach my $entry (@input) {
 
   my @displays = ();
   my @digits = split(/\s/, $digits);
-  for (my $x = 0; $x < 9; $x++) {
+  for (my $x = 0; $x <= 9; $x++) {
     push @displays, SevenSegmentDisplay->new({
       input_code => $digits[$x],
     });
   }
 
   foreach my $permutation (@$permutations) {
+    my $valids = 0;
     foreach my $display (@displays) {
-      print join('', @$permutation), "\n";
       $display->parse_key($permutation);
-      print Dumper $display;
-      <>;
+      #print Dumper $display;
+      #print Dumper $display->{'intended'};
+      #print "Intended code: ", $display->_get_intended_code, "\n";
+      my $is_valid = $display->is_intended_valid;
+      #print "is valid?: ", $is_valid, "\n";
+      $valids += $is_valid;
     }
-  #last;
+
+    if ($valids == 10) {
+      #print "Valids: ", $valids, "\n";
+      print join('', @$permutation), "\n";
+      #<>;
+    }
   }
+
+
+  next;
+  last;
 
   #print Dumper \@displays;
 

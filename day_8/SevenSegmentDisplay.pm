@@ -72,14 +72,53 @@ sub parse_key {
 sub _calc_intended { 
   my $self = shift;
 
+  $self->{'intended'} = {
+      a => 0,
+      b => 0,
+      c => 0,
+      d => 0,
+      e => 0,
+      f => 0,
+      g => 0,
+  };
+
   foreach my $letter (keys %{$self->{illuminated}}) {
     if ($self->{'illuminated'}->{$letter}) {
+      #print "Letter: ", $letter, " is illuminated\n";
       # this letter is illuminated
-      print $letter, "\n";
+      #print $letter, "\n";
       $self->{'intended'}->{$self->{'code'}->{$letter}} = 1;
     }
   }
   return $self;
+}
+
+sub _get_intended_code {
+  my $self = shift;
+  my @intended_segments = ();
+
+  foreach my $letter (keys %{$self->{intended}}) {
+    if ($self->{'intended'}->{$letter} > 0) {
+      push @intended_segments, $letter;
+    }
+  } 
+  return join ('', sort(@intended_segments));
+}
+
+sub is_intended_valid {
+  my $self = shift;
+  my $intended_code = $self->_get_intended_code;
+  return 1 if $intended_code eq 'abcefg'; # 0
+  return 1 if $intended_code eq 'cf'; # 1
+  return 1 if $intended_code eq 'acdeg'; # 2
+  return 1 if $intended_code eq 'acdfg'; # 3
+  return 1 if $intended_code eq 'bcdf'; # 4
+  return 1 if $intended_code eq 'abdfg'; # 5
+  return 1 if $intended_code eq 'abdefg'; # 6
+  return 1 if $intended_code eq 'acf'; # 7
+  return 1 if $intended_code eq 'abcdefg'; # 8
+  return 1 if $intended_code eq 'abcdfg'; # 9
+  return 0;
 }
 
 =cut
