@@ -7,8 +7,8 @@ use Data::Dumper;
 
 
 my @input = ();
-#open (my $input, '<', 'test_input');
-open (my $input, '<', 'input');
+open (my $input, '<', 'test_input');
+#open (my $input, '<', 'input');
 while (my $line = <$input>) { 
   chomp $line;
   #print $line, "\n";
@@ -26,27 +26,45 @@ for (my $x = 0; $x < scalar(@input); $x++) {
   }
 }
 
-#print Dumper $board;
-my $low_score = 0;
+# make check cell recursive and return the ultimate lowest cell
 
-#check_cell($board, 4, 9);
+# categorize cells by result of check cell
+
+
+
+#print Dumper $board;
+
+check_cell($board, 4, 9);
+
+my %basins;
 
 for (my $x = 0; $x < scalar(@{$board}); $x++) {
   for (my $y = 0; $y < scalar(@{$board->[$x]}); $y++) {
-    my $is_lowest = check_cell($board, $x, $y);
-    next unless $is_lowest;
-    print "$x $y: " . $board->[$x]->[$y] . "\n";
-    $low_score += 1 + $board->[$x]->[$y];
+    my $low_spot = check_cell($board, $x, $y), "\n";
+    $basins{$low_spot}++;
   }
+  print "\n";
 }
 
-print "Low score: ", $low_score, "\n";
+delete $basins{'nine'};
 
+print Dumper \%basins;
+
+my @keys = sort { $basins{$b} <=> $basins{$a} } keys %basins;
+
+foreach my $key ( @keys ) {
+    printf "%-20s %6d\n", $key, $basins{$key};
+}
+
+print $basins{$keys[0]} * $basins{$keys[1]} * $basins{$keys[2]}, "\n";
 
 sub check_cell {
   my $board = shift;
   my $x = shift;
   my $y = shift;
+
+  return 'nine' if $board->[$x]->[$y] == 9;
+
 
   my @neighbors = ();
   push @neighbors, [$x, $y - 1] if $y > 0; # up
@@ -56,12 +74,13 @@ sub check_cell {
 
   #print Dumper \@neighbors;
 
-  # is here lowest?
-  my $is_lowest = 1;
-
   foreach my $neighbor (@neighbors) {
-    # set here_is_lowest false if neighbor is lower
-    $is_lowest = 0 if ($board->[$x]->[$y] >= $board->[$neighbor->[0]]->[$neighbor->[1]]);
+    #print $neighbor, "\n";
+    if ($board->[$neighbor->[0]]->[$neighbor->[1]] < $board->[$x]->[$y]) {
+      return check_cell($board, $neighbor->[0], $neighbor->[1]);
+    }
   }
-  return $is_lowest;
+
+  return $x . 'x' . $y;
+
 }
