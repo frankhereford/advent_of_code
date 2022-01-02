@@ -7,8 +7,8 @@ use Data::Dumper;
 
 
 my @input = ();
-open (my $input, '<', 'test_input');
-#open (my $input, '<', 'input');
+#open (my $input, '<', 'test_input');
+open (my $input, '<', 'input');
 while (my $line = <$input>) { 
   chomp $line;
   #print $line, "\n";
