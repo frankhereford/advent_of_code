@@ -33,8 +33,9 @@ my $low_score = 0;
 
 for (my $x = 0; $x < scalar(@{$board}); $x++) {
   for (my $y = 0; $y < scalar(@{$board->[$x]}); $y++) {
-    my $is_lowest if check_cell($board, $x, $y);
+    my $is_lowest = check_cell($board, $x, $y);
     print "$x $y: " . $is_lowest . "\n";
+    $low_score += 1 + $board->[$x]->[$y] if $is_lowest;
   }
 }
 
