@@ -26,9 +26,20 @@ for (my $x = 0; $x < scalar(@input); $x++) {
   }
 }
 
-print Dumper $board;
+#print Dumper $board;
+my $low_score = 0;
 
-check_cell($board, 4, 9);
+#check_cell($board, 4, 9);
+
+for (my $x = 0; $x < scalar(@{$board}); $x++) {
+  for (my $y = 0; $y < scalar(@{$board->[$x]}); $y++) {
+    my $is_lowest if check_cell($board, $x, $y);
+    print "$x $y: " . $is_lowest . "\n";
+  }
+}
+
+print "Low score: ", $low_score, "\n";
+
 
 sub check_cell {
   my $board = shift;
@@ -41,5 +52,14 @@ sub check_cell {
   push @neighbors, [$x - 1, $y] if $x > 0; # left
   push @neighbors, [$x + 1, $y] if $x < scalar(@{$board}) - 1; # right
 
-  print Dumper \@neighbors;
+  #print Dumper \@neighbors;
+
+  # is here lowest?
+  my $is_lowest = 1;
+
+  foreach my $neighbor (@neighbors) {
+    # set here_is_lowest false if neighbor is lower
+    $is_lowest = 0 if ($board->[$x]->[$y] > $board->[$neighbor->[0]]->[$neighbor->[1]]);
+  }
+  return $is_lowest;
 }
