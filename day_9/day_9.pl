@@ -7,8 +7,8 @@ use Data::Dumper;
 
 
 my @input = ();
-open (my $input, '<', 'test_input');
-#open (my $input, '<', 'input');
+#open (my $input, '<', 'test_input');
+open (my $input, '<', 'input');
 while (my $line = <$input>) { 
   chomp $line;
   #print $line, "\n";
@@ -34,8 +34,9 @@ my $low_score = 0;
 for (my $x = 0; $x < scalar(@{$board}); $x++) {
   for (my $y = 0; $y < scalar(@{$board->[$x]}); $y++) {
     my $is_lowest = check_cell($board, $x, $y);
-    print "$x $y: " . $is_lowest . "\n";
-    $low_score += 1 + $board->[$x]->[$y] if $is_lowest;
+    next unless $is_lowest;
+    print "$x $y: " . $board->[$x]->[$y] . "\n";
+    $low_score += 1 + $board->[$x]->[$y];
   }
 }
 
@@ -60,7 +61,7 @@ sub check_cell {
 
   foreach my $neighbor (@neighbors) {
     # set here_is_lowest false if neighbor is lower
-    $is_lowest = 0 if ($board->[$x]->[$y] > $board->[$neighbor->[0]]->[$neighbor->[1]]);
+    $is_lowest = 0 if ($board->[$x]->[$y] >= $board->[$neighbor->[0]]->[$neighbor->[1]]);
   }
   return $is_lowest;
 }
