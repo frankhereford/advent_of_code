@@ -16,9 +16,14 @@ while (my $line = <$input>) {
 }
 close $input;
 
+my $board= [];
+
 for (my $x = 0; $x < scalar(@input); $x++) {
+  $board->[$x] = [];
   my @heights = split(//, $input[$x]);
   for (my $y = 0; $y < scalar(@heights); $y++) {
-    #print $x, ' x ', $y, "\n";
+    $board->[$x]->[$y] = $heights[$y];
   }
 }
+
+print Dumper $board;
