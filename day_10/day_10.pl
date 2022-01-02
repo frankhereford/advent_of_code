@@ -15,8 +15,9 @@ while (my $line = <$input>) {
   push @input, $line;
 }
 close $input;
-=cut
 
+
+=cut
 {([(<{}[<>[]}>{[]{[(<()>
 {([(<[<>[]}>{[]{[(<()>
 {([(<[[]}>{[]{[(<()>
@@ -31,8 +32,6 @@ close $input;
 
 
 exit;
-
-
 
 foreach my $line (@input) {
   my $fail_char = parse_line($line);
