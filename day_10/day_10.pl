@@ -15,14 +15,6 @@ while (my $line = <$input>) {
   push @input, $line;
 }
 close $input;
-
-foreach my $line (@input) {
-  my $fail_char = parse_line($line);
-  print $line, "\n";
-  print "Fail char: ", $fail_char, "\n";
-  print "\n";
-}
-
 =cut
 
 {([(<{}[<>[]}>{[]{[(<()>
@@ -34,6 +26,21 @@ foreach my $line (@input) {
 {([(<[}>{{[(
       *
 =cut 
+
+
+
+
+exit;
+
+
+
+foreach my $line (@input) {
+  my $fail_char = parse_line($line);
+  print $line, "\n";
+  print "Fail char: ", $fail_char, "\n";
+  print "\n";
+}
+
 
 sub parse_line {
   my $line = shift;
