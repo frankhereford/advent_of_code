@@ -27,3 +27,19 @@ for (my $x = 0; $x < scalar(@input); $x++) {
 }
 
 print Dumper $board;
+
+check_cell($board, 4, 9);
+
+sub check_cell {
+  my $board = shift;
+  my $x = shift;
+  my $y = shift;
+
+  my @neighbors = ();
+  push @neighbors, [$x, $y - 1] if $y > 0; # up
+  push @neighbors, [$x, $y + 1] if $y < scalar(@{$board->[0]}) - 1; # down
+  push @neighbors, [$x - 1, $y] if $x > 0; # left
+  push @neighbors, [$x + 1, $y] if $x < scalar(@{$board}) - 1; # right
+
+  print Dumper \@neighbors;
+}
