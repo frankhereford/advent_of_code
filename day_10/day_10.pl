@@ -7,7 +7,7 @@ use Data::Dumper;
 
 
 my @input = ();
-open (my $input, '<', 'micro_test_input');
+open (my $input, '<', 'test_input');
 #open (my $input, '<', 'input');
 while (my $line = <$input>) { 
   chomp $line;
@@ -21,8 +21,10 @@ foreach my $line (@input) {
   #print $line, "\n";
   my @chars = split(//, $line);
   my $illegal_char = find_first_illegal_char(\@chars);
-  print "Illegal char: ", $illegal_char, "\n";
-  push @illegal_chars, $illegal_char if $illegal_char;
+  if ($illegal_char) {
+    print "Illegal char: ", $illegal_char, "\n";
+    push @illegal_chars, $illegal_char if $illegal_char;
+  }
   print "\n\n";
 }
 
@@ -50,7 +52,7 @@ sub find_first_illegal_char {
       #print "Found one!\n";
       splice(@line, $x, 2);
       print join('', @line), "\n";
-      $x = 0; # resetting the for loop!
+      $x = -1; # resetting the for loop!
     }
   }
 
