@@ -7,7 +7,7 @@ use Data::Dumper;
 
 
 my @input = ();
-open (my $input, '<', 'micro_test_input');
+open (my $input, '<', 'test_input');
 #open (my $input, '<', 'input');
 while (my $line = <$input>) { 
   chomp $line;
@@ -39,8 +39,11 @@ foreach my $line (@incomplete_lines) {
   my $score = score_closing_tags(\@closing_tags);
   push @scores, $score;
 }
+@scores = sort {$a <=> $b} @scores;
 
 print Dumper \@scores;
+
+print "Answer: ", $scores[int(scalar(@scores) / 2)], "\n";
 
 sub score_closing_tags {
   my $closing_tags = shift;
