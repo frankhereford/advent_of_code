@@ -7,7 +7,7 @@ use Data::Dumper;
 
 
 my @input = ();
-open (my $input, '<', 'input');
+open (my $input, '<', 'micro_test_input');
 #open (my $input, '<', 'input');
 while (my $line = <$input>) { 
   chomp $line;
@@ -17,17 +17,47 @@ while (my $line = <$input>) {
 close $input;
 
 my @illegal_chars = ();
+my @incomplete_lines = ();
 foreach my $line (@input) {
   #print $line, "\n";
   my @chars = split(//, $line);
   my $illegal_char = find_first_illegal_char(\@chars);
   if ($illegal_char) {
-    print "Illegal char: ", $illegal_char, "\n";
+    #print "Illegal char: ", $illegal_char, "\n";
     push @illegal_chars, $illegal_char if $illegal_char;
-  }
+  } 
   print "\n\n";
 }
 
+#print Dumper \@incomplete_lines;
+
+my @scores = ();
+foreach my $line (@incomplete_lines) {
+  my @line = @$line;
+  my @closing_tags = reverse @line;
+  print Dumper \@closing_tags, "\n";
+  my $score = score_closing_tags(\@closing_tags);
+  push @scores, $score;
+}
+
+print Dumper \@scores;
+
+sub score_closing_tags {
+  my $closing_tags = shift;
+  my @closing_tags = @$closing_tags;
+  my $score = 0;
+  foreach my $tag (@closing_tags) {
+    $score = $score * 5;
+    $score += 1 if $tag eq '(';
+    $score += 2 if $tag eq '[';
+    $score += 3 if $tag eq '{';
+    $score += 4 if $tag eq '<';
+  }
+  return $score;
+}
+
+=cut
+# printing part 1 solution
 print Dumper \@illegal_chars;
 
 my $score = 0;
@@ -38,7 +68,7 @@ foreach my $char (@illegal_chars) {
   $score += 25137 if $char eq '>';
 }
 print "Final score: ", $score, "\n";
-
+=cut
 
 sub find_first_illegal_char {
   my $line = shift;
@@ -61,6 +91,7 @@ sub find_first_illegal_char {
     return find_first_closing_tag(\@line);
   } else {
     #print "Incomplete!\n";
+    push @incomplete_lines, \@line;
     return undef;
   }
 }
