@@ -16,13 +16,27 @@ while (my $line = <$input>) {
 }
 close $input;
 
+my @illegal_chars = ();
 foreach my $line (@input) {
   #print $line, "\n";
   my @chars = split(//, $line);
   my $illegal_char = find_first_illegal_char(\@chars);
   print "Illegal char: ", $illegal_char, "\n";
+  push @illegal_chars, $illegal_char if $illegal_char;
   print "\n\n";
 }
+
+print Dumper \@illegal_chars;
+
+my $score = 0;
+foreach my $char (@illegal_chars) {
+  $score += 3 if $char eq ')';
+  $score += 57 if $char eq ']';
+  $score += 1197 if $char eq '}';
+  $score += 25137 if $char eq '>';
+}
+print "Final score: ", $score, "\n";
+
 
 sub find_first_illegal_char {
   my $line = shift;
