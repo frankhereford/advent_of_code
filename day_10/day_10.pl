@@ -36,7 +36,7 @@ sub find_first_illegal_char {
       #print "Found one!\n";
       splice(@line, $x, 2);
       print join('', @line), "\n";
-      $x = 0; # resetting the fore loop!
+      $x = 0; # resetting the for loop!
     }
   }
 
@@ -47,7 +47,6 @@ sub find_first_illegal_char {
     #print "Incomplete!\n";
     return undef;
   }
-
 }
 
 sub find_first_closing_tag {
