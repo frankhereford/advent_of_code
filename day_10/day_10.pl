@@ -27,8 +27,24 @@ sub find_first_illegal_char {
   my $line = shift;
   my @line = @$line;
   print Dumper \@line;
+
+  my $x = 0;
+  print "Is matching pair at ", $x, ": ", is_matching_pair($line[$x], $line[$x + 1]), "\n";
+
+
 }
 
+sub is_matching_pair {
+  my $alpha = shift;
+  my $beta = shift;
+  print "alpha: ", $alpha, "\n";
+  print "beta: ", $beta, "\n";
+  return 1 if $alpha eq '(' and $beta eq ')';
+  return 1 if $alpha eq '[' and $beta eq ']';
+  return 1 if $alpha eq '{' and $beta eq '}';
+  return 1 if $alpha eq '<' and $beta eq '>';
+  return 0;
+}
 
 # working left to right, eliminate adjacent open-close pairs
 # if you have to get to a close tag that isn't part of an adjacent open-close pair,
