@@ -20,6 +20,7 @@ foreach my $line (@input) {
   #print $line, "\n";
   my @chars = split(//, $line);
   my $illegal_char = find_first_illegal_char(\@chars);
+  print "Illegal char: ", $illegal_char, "\n";
   print "\n\n";
 }
 
@@ -29,23 +30,32 @@ sub find_first_illegal_char {
 
   print join('', @line), "\n";
 
-  my $found_one_this_iteration = 0;
   for (my $x = 0; $x < scalar(@line); $x++) {
     #print "X: ", $x, "\n";
     if (is_matching_pair($line[$x], $line[$x + 1])) {
-      print "Found one!\n";
+      #print "Found one!\n";
       splice(@line, $x, 2);
       print join('', @line), "\n";
       $x = 0; # resetting the fore loop!
-      $found_one_this_iteration = 1;
     }
   }
 
-  unless ($found_one_this_iteration) {
-    print "We didn't find one!\n";
-    last;
+  if (join('', @line) =~ /[\)\]}>]/) { # that is an ugly regex!
+    #print "Currupt!\n";
+    return find_first_closing_tag(\@line);
+  } else {
+    #print "Incomplete!\n";
+    return undef;
   }
 
+}
+
+sub find_first_closing_tag {
+  my $line = shift;
+  my @line = @$line;
+  for (my $x = 0; $x < scalar(@line); $x++) {
+    return $line[$x] if $line[$x] =~ /[\)\]}>]/;
+  }
 }
 
 sub is_matching_pair {
