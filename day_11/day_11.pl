@@ -13,3 +13,12 @@ while (my $line = <$input>) {
   push @input, $line;
 }
 close $input;
+
+my @board = ();
+
+foreach my $rank (@input) {
+  my @rank = split(//, $rank);
+  push @board, \@rank;
+}
+
+print Dumper \@board;
