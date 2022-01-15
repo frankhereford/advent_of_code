@@ -16,6 +16,19 @@ while (my $line = <$input>) {
 }
 close $input;
 
+foreach my $line (@input) {
+  print $line, "\n";
+  my @chars = split(//, $line);
+  my $illegal_char = find_first_illegal_char(\@chars);
+}
+
+
+sub find_first_illegal_char {
+  my $line = shift;
+  my @line = @$line;
+  print Dumper \@line;
+}
+
 
 # working left to right, eliminate adjacent open-close pairs
 # if you have to get to a close tag that isn't part of an adjacent open-close pair,
