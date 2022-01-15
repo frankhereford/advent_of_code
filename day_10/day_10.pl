@@ -7,7 +7,7 @@ use Data::Dumper;
 
 
 my @input = ();
-open (my $input, '<', 'test_input');
+open (my $input, '<', 'micro_test_input');
 #open (my $input, '<', 'input');
 while (my $line = <$input>) { 
   chomp $line;
@@ -17,28 +17,38 @@ while (my $line = <$input>) {
 close $input;
 
 foreach my $line (@input) {
-  print $line, "\n";
+  #print $line, "\n";
   my @chars = split(//, $line);
   my $illegal_char = find_first_illegal_char(\@chars);
+  print "\n\n";
 }
-
 
 sub find_first_illegal_char {
   my $line = shift;
   my @line = @$line;
-  print Dumper \@line;
 
-  my $x = 0;
-  print "Is matching pair at ", $x, ": ", is_matching_pair($line[$x], $line[$x + 1]), "\n";
-
-
+  print join('', @line), "\n";
+  for (my $x = 0; $x < scalar(@line); $x++) {
+    print "X: ", $x, "\n";
+    my $found_one_this_iteration = 0;
+    if (is_matching_pair($line[$x], $line[$x + 1])) {
+      print "Found one!\n";
+      splice(@line, $x, 2);
+      $found_one_this_iteration = 1;
+      last;
+    }
+    unless ($found_one_this_iteration) {
+      print "We didn't find one!\n";
+    }
+  }
+  print join('', @line), "\n";
 }
 
 sub is_matching_pair {
   my $alpha = shift;
   my $beta = shift;
-  print "alpha: ", $alpha, "\n";
-  print "beta: ", $beta, "\n";
+  #print "alpha: ", $alpha, "\n";
+  #print "beta: ", $beta, "\n";
   return 1 if $alpha eq '(' and $beta eq ')';
   return 1 if $alpha eq '[' and $beta eq ']';
   return 1 if $alpha eq '{' and $beta eq '}';
