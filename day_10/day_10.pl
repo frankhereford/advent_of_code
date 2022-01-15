@@ -17,6 +17,14 @@ while (my $line = <$input>) {
 close $input;
 
 
+# working left to right, eliminate adjacent open-close pairs
+# if you have to get to a close tag that isn't part of an adjacent open-close pair,
+# then you have found a currupted pair.
+
+# incomplete ones boil down to just open tags
+
+# complete ones boil down to nothing
+
 =cut
 {([(<{}[<>[]}>{[]{[(<()>
 {([(<[<>[]}>{[]{[(<()>
@@ -47,14 +55,28 @@ close $input;
 [<(<(<(<))><([]([]()
 =cut
 
+#<{([([[(<>()){}]>(<<{{
+#<{([([[(()){}]>(<<{{
+#<{([([[(){}]>(<<{{
+#<{([([[{}]>(<<{{
+#<{([([[]>(<<{{
+#<{([([>(<<{{
+#<{([([>(<<{{
+
+
 =cut
-<{([([[(<>()){}]>(<<{{
-<{([([[(()){}]>(<<{{
-<{([([[(){}]>(<<{{
-<{([([[{}]>(<<{{
-<{([([[]>(<<{{
-<{([([>(<<{{
-<{([([>(<<{{
+# incomplete one
+
+[({(<(())[]>[[{[]{<()<>>
+[({(<()[]>[[{[]{<()<>>
+[({(<[]>[[{[]{<()<>>
+[({(<>[[{[]{<()<>>
+[({([[{[]{<()<>>
+[({([[{{<()<>>
+[({([[{{<<>>
+[({([[{{<>
+[({([[{{
+
 =cut
 
 exit;
