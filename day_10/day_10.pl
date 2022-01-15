@@ -28,20 +28,24 @@ sub find_first_illegal_char {
   my @line = @$line;
 
   print join('', @line), "\n";
+
+  my $found_one_this_iteration = 0;
   for (my $x = 0; $x < scalar(@line); $x++) {
-    print "X: ", $x, "\n";
-    my $found_one_this_iteration = 0;
+    #print "X: ", $x, "\n";
     if (is_matching_pair($line[$x], $line[$x + 1])) {
       print "Found one!\n";
       splice(@line, $x, 2);
+      print join('', @line), "\n";
+      $x = 0; # resetting the fore loop!
       $found_one_this_iteration = 1;
-      last;
-    }
-    unless ($found_one_this_iteration) {
-      print "We didn't find one!\n";
     }
   }
-  print join('', @line), "\n";
+
+  unless ($found_one_this_iteration) {
+    print "We didn't find one!\n";
+    last;
+  }
+
 }
 
 sub is_matching_pair {
