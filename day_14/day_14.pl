@@ -18,7 +18,7 @@ close $input;
 my $polymer = shift(@input);
 shift(@input);
 
-for (my $step = 0; $step < 10; $step++) {
+for (my $step = 0; $step < 40; $step++) {
   for (my $x = 0; $x < length($polymer) - 1; $x++) {
     my $operating_pair = substr($polymer, $x, 2);
     #print $operating_pair, "\n";
@@ -34,7 +34,8 @@ for (my $step = 0; $step < 10; $step++) {
       }
     }
   }
-  print "Step #", $step, ": ", $polymer, "\n";
+  #print "Step #", $step, ": ", $polymer, "\n";
+  print "Step #", $step, ": ", length($polymer), "\n";
 }
 
 my @letters = split(//, $polymer);
