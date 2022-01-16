@@ -27,12 +27,6 @@ foreach my $input (@input) {
   link_two_caves($left_cave, $right_cave);
 }
 
-
-#foreach my $connection (@{$caves->{'start'}->{'connections'}}) {
-  #print $connection->{'name'}, "\n";
-#}
-#print "\n";
-
 my @paths = (); # global to hold paths upon end point finding
 
 my $path = [];
@@ -42,6 +36,7 @@ explore($caves->{'start'}, $path, 0);
 print Dumper \@paths;
 
 print "Total path count: ", scalar(@paths), "\n";
+
 
 sub explore {
   my $here = shift;
