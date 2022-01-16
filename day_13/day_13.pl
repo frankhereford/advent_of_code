@@ -61,6 +61,9 @@ foreach my $line (@input) {
 }
 
 print_board($board);
+my $count = count_board($board);
+print "Count of dots: ", $count, "\n";
+
 
 sub fold {
   my $board = shift;
@@ -112,3 +115,16 @@ sub print_board {
   }
   print "\n";
 }
+
+sub count_board {
+  my $board = shift;
+  my $count = 0;
+  #x and y are flipped in meaning here; this is messy
+  for (my $x = 0; $x <= $largest_y; $x++) {
+    for (my $y = 0; $y <= $largest_x; $y++) {
+      $count++ if $board->[$x]->[$y]->{'dots'};
+    }
+  }
+  return $count;
+}
+
