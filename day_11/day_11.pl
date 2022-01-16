@@ -3,6 +3,7 @@
 use strict;
 use FindBin;
 use lib $FindBin::Bin;
+use Term::ANSIColor;
 use Data::Dumper;
 
 my @input = ();
@@ -33,7 +34,13 @@ sub print_board {
   my $board = shift;
   for (my $x = 0; $x < 10; $x++) {
     for (my $y = 0; $y < 10; $y++) {
+      if ($board->[$x]->[$y]->{'has_flashed_this_turn'}) {
+        print color('red');
+      }
       print $board->[$x]->[$y]->{'level'};
+      if ($board->[$x]->[$y]->{'has_flashed_this_turn'}) {
+        print color('reset');
+      }
     }
   print "\n";
   }
