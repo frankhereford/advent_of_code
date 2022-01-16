@@ -8,7 +8,7 @@ use Data::Dumper;
 use Cave;
 
 my @input = ();
-open (my $input, '<', 'micro_test_input');
+open (my $input, '<', 'big_test_input');
 while (my $line = <$input>) { 
   chomp $line;
   #print $line, "\n";
@@ -41,6 +41,8 @@ explore($caves->{'start'}, $path, 0);
 
 print Dumper \@paths;
 
+print "Total path count: ", scalar(@paths), "\n";
+
 sub explore {
   my $here = shift;
   my $path = shift;
@@ -56,15 +58,23 @@ sub explore {
   print "Path so far:\n";
   print Dumper \@path;
 
-  $here->{'been_visited'}++;
+  #if (!scalar(@$valid_next_moves) or $here->{'name'} eq 'end') {
+  if ($here->{'name'} eq 'end') {
+    print "End of path\n";
+    my @final_path = @path;
+    push @paths, \@final_path;
+    return;
+  }
 
   my $valid_next_moves = $here->get_valid_next_moves(\@path);
 
-  if (!scalar(@$valid_next_moves) or $here->{'name'} eq 'end') {
-    print "End of path\n";
-    return; # return something to inform recursion to run up the stack
+  print "Here are my next valid moves: \n";
+  foreach my $there (@{$valid_next_moves}) {
+    print " * ", $there->{'name'}, "\n";
   }
- 
+
+  #<>;
+
   foreach my $there (@{$valid_next_moves}) {
     #print "Exploring to: ", $here->{'name'}, "\n";
     explore($there, \@path, $depth); # look for the run up the stack result
