@@ -45,10 +45,30 @@ sub flash_board {
       if (!$board->[$x]->[$y]->{'has_flashed_this_turn'} && $board->[$x]->[$y]->{'level'} > 9) {
         $board->[$x]->[$y]->{'has_flashed_this_turn'} = 1;
         $board->[$x]->[$y]->{'level'} = '*';
+        get_near_cords($x, $y);
       }
     }
   }
   return $board;
+}
+
+sub get_near_cords {
+  my $x = shift;
+  my $y = shift;
+
+  my @chords = (
+    [$x - 1, $y - 1],
+    [$x, $y - 1],
+    [$x + 1, $y - 1],
+    [$x - 1, $y],
+    [$x + 1, $y],
+    [$x - 1, $y + 1], 
+    [$x, $y + 1],
+    [$x + 1, $y + 1]
+  );
+
+
+  print Dumper $chords;
 }
 
 sub increment_board_by_one {
