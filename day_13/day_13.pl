@@ -68,19 +68,26 @@ sub fold {
   my $location = shift;
 
   if ($direction eq 'y') {
-
     for (my $y = $location + 1; $y <= $largest_y; $y++) {
       for (my $x = 0; $x <= $largest_x; $x++) {
         # here we can build cords that need to be reflected up
         my $new_y = $location - ($y - $location);
-        print $x, ", ", $y, " becomes ", $x, ", ", $new_y, "\n";
+        #print $x, ", ", $y, " becomes ", $x, ", ", $new_y, "\n";
         $board->[$new_y]->[$x]->{'dots'} += $board->[$y]->[$x]->{'dots'};
+        $board->[$y]->[$x]->{'dots'} = 0;
         #<>;
       }
     }
-
   } else { # x
-
+    for (my $x = $location + 1; $x <= $largest_x; $x++) {
+      for (my $y = 0; $y <= $largest_y; $y++) {
+        my $new_x = $location - ($x - $location);
+        #print $x, ", ", $y, " becomes ", $x, ", ", $new_y, "\n";
+        $board->[$y]->[$new_x]->{'dots'} += $board->[$y]->[$x]->{'dots'};
+        $board->[$y]->[$x]->{'dots'} = 0;
+        #<>;
+      }
+    }
   }
 
   return $board;
