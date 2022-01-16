@@ -33,16 +33,44 @@ foreach my $input (@input) {
 #}
 #print "\n";
 
-my $paths = [];
+my @paths = (); # global to hold paths upon end point finding
 
-$paths = explore($caves->{'start'}, $paths);
+my $path = [];
 
-print Dumper $paths;
+explore($caves->{'start'}, $path, 0);
+
+print Dumper \@paths;
 
 sub explore {
-  my $start = shift;
-  my $paths = shift;
-  return $paths;
+  my $here = shift;
+  my $path = shift;
+  my $depth = shift;
+
+  $depth++;
+  my @path = @$path; # we're making a copy of this to hand on
+  push @path, $here->{'name'};
+
+
+  print "Depth: ", $depth, "; In: ", $here->{'name'}, "\n";
+
+  print "Path so far:\n";
+  print Dumper \@path;
+
+  $here->{'been_visited'}++;
+
+  my $valid_next_moves = $here->get_valid_next_moves(\@path);
+
+  if (!scalar(@$valid_next_moves) or $here->{'name'} eq 'end') {
+    print "End of path\n";
+    return; # return something to inform recursion to run up the stack
+  }
+ 
+  foreach my $there (@{$valid_next_moves}) {
+    #print "Exploring to: ", $here->{'name'}, "\n";
+    explore($there, \@path, $depth); # look for the run up the stack result
+  }
+
+  return $path;
 }
 
 sub link_two_caves {

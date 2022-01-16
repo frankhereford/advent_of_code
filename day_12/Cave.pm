@@ -32,6 +32,8 @@ sub is_ok_to_visit {
 
 sub get_valid_next_moves {
   my $self = shift;
+  my $visited_nodes = shift;
+
   my @valid_next_moves = ();
   foreach my $neighbor (@{$self->{'connections'}}) {
     push @valid_next_moves, $neighbor if $neighbor->is_ok_to_visit;
