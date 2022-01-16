@@ -30,13 +30,22 @@ print_board($board);
 
 for (my $iteration = 0; $iteration < 100; $iteration++) {
   print "\nNew Turn!\n\n";
+
   $board = increment_board_by_one($board);
+
   while (has_potential_flashes($board)) {
     $board = flash_board($board);
     print_board($board);
     print "\n";
-    <>;
   }
+
+  $board = reset_flashed_cells($board);
+
+}
+
+sub reset_flashed_cells {
+  my $board = shift;
+  return $board;
 }
 
 sub has_potential_flashes {
