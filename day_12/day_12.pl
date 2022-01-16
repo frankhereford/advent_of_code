@@ -22,35 +22,16 @@ foreach my $input (@input) {
   $input =~ /(\w+)-(\w+)/;
   my $left_cave_name = $1;
   my $right_cave_name = $2;
-
-  print "\n\n";
-
-  print "Left cave name: ", $left_cave_name, "\n";
-  print "Right cave name: ", $right_cave_name, "\n";
-
-  print "\n";
-  print "Pre-add state of caves:\n";
-  print Dumper $caves;
-  print "\n";
-
-  #print "Adding: \n";
-
   my $left_cave = create_and_or_return_cave($left_cave_name);
   my $right_cave = create_and_or_return_cave($right_cave_name);
-
-  print "Here's left cave: \n";
-  print Dumper $left_cave;
-
-  print "Here's right cave: \n";
-  print Dumper $right_cave;
-
   link_two_caves($left_cave, $right_cave);
-
-  print Dumper $caves;
-  print "\n";
-
-<>;
 }
+
+
+foreach my $connection (@{$caves->{'start'}->{'connections'}}) {
+  print $connection->{'name'}, "\n";
+}
+print "\n";
 
 
 
@@ -62,7 +43,6 @@ sub link_two_caves {
   $second_cave->add_connection($first_cave);
 
 }
-
 
 sub create_and_or_return_cave {
   my $cave_name = shift;

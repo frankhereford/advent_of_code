@@ -22,4 +22,12 @@ sub add_connection {
   push @$connections, $connectee;
 }
 
+sub is_ok_to_visit {
+  my $self = shift;
+  return 1 if $self->{'is_large'};
+  return 1 unless $self->{'been_visited'};
+  return 0;
+}
+
+
 1;
