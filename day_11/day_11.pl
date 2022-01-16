@@ -7,7 +7,7 @@ use Term::ANSIColor;
 use Data::Dumper;
 
 my @input = ();
-open (my $input, '<', 'input');
+open (my $input, '<', 'test_input');
 while (my $line = <$input>) { 
   chomp $line;
   #print $line, "\n";
@@ -29,7 +29,7 @@ for (my $x = 0; $x < 10; $x++) {
 print_board($board);
 
 my $flashes = 0;
-for (my $iteration = 0; $iteration < 100; $iteration++) {
+for (my $iteration = 0; $iteration < 10000; $iteration++) {
   print "\nTurn ", $iteration + 1, "!\n\n";
 
   print "Incrementing everyone by one\n";
@@ -43,6 +43,11 @@ for (my $iteration = 0; $iteration < 100; $iteration++) {
   }
 
   print "About to reset flashed cells\n";
+  if (count_flashed_this_turn($board) == 100) {
+    print "Dang we got this one for free!\n";
+    print "\n100 flashes on turn ", $iteration + 1, ".\n";
+    <>;
+  }
   $flashes += count_flashed_this_turn($board);
   print "This turn had ", $flashes, " flashes.\n";
   $board = reset_flashed_cells($board);
