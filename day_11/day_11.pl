@@ -28,6 +28,15 @@ for (my $x = 0; $x < 10; $x++) {
 
 print_board($board);
 
+$board = increment_board_by_one($board);
+
+sub increment_board_by_one {
+  my $board = shift;
+
+
+  return $board;
+}
+
 #print Dumper $board;
 
 sub print_board {
