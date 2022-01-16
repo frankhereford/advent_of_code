@@ -28,19 +28,39 @@ for (my $x = 0; $x < 10; $x++) {
 
 print_board($board);
 
+my $flashes = 0;
 for (my $iteration = 0; $iteration < 100; $iteration++) {
-  print "\nNew Turn!\n\n";
+  print "\nTurn ", $iteration + 1, "!\n\n";
 
+  print "Incrementing everyone by one\n";
   $board = increment_board_by_one($board);
+  print_board($board);
 
   while (has_potential_flashes($board)) {
+    print "About to flash cells\n";
     $board = flash_board($board);
     print_board($board);
-    print "\n";
   }
 
+  print "About to reset flashed cells\n";
+  $flashes += count_flashed_this_turn($board);
+  print "This turn had ", $flashes, " flashes.\n";
   $board = reset_flashed_cells($board);
+  print_board($board);
+  print "\nTurn ", $iteration + 1, " - Total Flashes so far: ", $flashes, "\n";
 
+  <>;
+}
+
+sub count_flashed_this_turn {
+  my $board = shift;
+  my $flashes = 0;
+  for (my $x = 0; $x < 10; $x++) {
+    for (my $y = 0; $y < 10; $y++) {
+      $flashes++ if $board->[$x]->[$y]->{'has_flashed_this_turn'};
+    }
+  }
+  return $flashes;
 }
 
 sub reset_flashed_cells {
@@ -50,7 +70,7 @@ sub reset_flashed_cells {
     for (my $y = 0; $y < 10; $y++) {
       if ($board->[$x]->[$y]->{'has_flashed_this_turn'}) {
         $board->[$x]->[$y]->{'level'} = 0;
-        $board->[$x]->[$y]->{'has_flash_this_turn'} = 0;
+        $board->[$x]->[$y]->{'has_flashed_this_turn'} = 0;
       }
     }
   }
@@ -62,8 +82,6 @@ sub has_potential_flashes {
   my $board = shift;
   for (my $x = 0; $x < 10; $x++) {
     for (my $y = 0; $y < 10; $y++) {
-      #print "Flip out $x $y\n" if $board->[$x]->[$y]->{'level'} > 9;
-      #print $board->[$x]->[$y]->{'level'}, "\n";
       return 1 if $board->[$x]->[$y]->{'level'} > 9;
     }
   }
@@ -149,4 +167,5 @@ sub print_board {
     }
   print "\n";
   }
+  print "\n";
 }
