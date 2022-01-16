@@ -33,7 +33,7 @@ foreach my $input (@input) {
 #}
 #print "\n";
 
-my @paths = [];
+my $paths = [];
 
 $paths = explore($caves->{'start'}, $paths);
 
@@ -41,6 +41,8 @@ print Dumper $paths;
 
 sub explore {
   my $start = shift;
+  my $paths = shift;
+  return $paths;
 }
 
 sub link_two_caves {
