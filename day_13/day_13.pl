@@ -44,12 +44,17 @@ foreach my $line (@input) {
   $line =~ /(\d+),(\d+)/;
   my $x = $1;
   my $y = $2;
-  print $x, ", ", $y, "\n";
+  #print $x, ", ", $y, "\n";
   $board->[$y]->[$x]->{'dots'}++;
 }
 
 print_board($board);
 
+foreach my $line (@input) {
+  next unless $line =~ /fold/;
+  print $line, "\n";
+  last;
+}
 
 
 #print Dumper $board;
