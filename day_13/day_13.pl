@@ -53,7 +53,7 @@ print_board($board);
 foreach my $line (@input) {
   next unless $line =~ /fold/;
   print $line, "\n";
-  $line =~ /([xy])=(\d+)$/
+  $line =~ /([xy])=(\d+)$/;
   my $direction = $1;
   my $location = $2;
   $board = fold($board, $direction, $location);
@@ -66,6 +66,24 @@ sub fold {
   my $board = shift;
   my $direction = shift;
   my $location = shift;
+
+  if ($direction eq 'y') {
+
+    for (my $y = $location + 1; $y <= $largest_y; $y++) {
+      for (my $x = 0; $x <= $largest_x; $x++) {
+        # here we can build cords that need to be reflected up
+        my $new_y = $location - ($y - $location);
+        print $x, ", ", $y, " becomes ", $x, ", ", $new_y, "\n";
+        $board->[$new_y]->[$x]->{'dots'} += $board->[$y]->[$x]->{'dots'};
+        #<>;
+      }
+    }
+
+  } else { # x
+
+  }
+
+  return $board;
 }
 
 #print Dumper $board;
@@ -73,8 +91,8 @@ sub fold {
 sub print_board {
   my $board = shift;
   #x and y are flipped in meaning here; this is messy
-  for (my $x = 0; $x < $largest_y; $x++) {
-    for (my $y = 0; $y < $largest_x; $y++) {
+  for (my $x = 0; $x <= $largest_y; $x++) {
+    for (my $y = 0; $y <= $largest_x; $y++) {
       if ($board->[$x]->[$y]->{'has_flashed_this_turn'}) {
         print color('red');
       }
