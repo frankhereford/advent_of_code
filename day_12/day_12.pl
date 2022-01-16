@@ -33,9 +33,11 @@ foreach my $input (@input) {
 #}
 #print "\n";
 
-my @paths = ();
+my @paths = [];
 
-explore($caves->{'start'}, \@paths);
+$paths = explore($caves->{'start'}, $paths);
+
+print Dumper $paths;
 
 sub explore {
   my $start = shift;
