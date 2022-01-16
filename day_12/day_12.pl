@@ -8,7 +8,7 @@ use Data::Dumper;
 use Cave;
 
 my @input = ();
-open (my $input, '<', 'micro_test_input');
+open (my $input, '<', 'input');
 while (my $line = <$input>) { 
   chomp $line;
   #print $line, "\n";
@@ -50,8 +50,8 @@ sub explore {
 
   print "Depth: ", $depth, "; In: ", $here->{'name'}, "\n";
 
-  print "Path so far:\n";
-  print Dumper \@path;
+  #print "Path so far:\n";
+  #print Dumper \@path;
 
   if ($here->{'name'} eq 'end') {
     print "End of path\n";
@@ -62,10 +62,10 @@ sub explore {
 
   my $valid_next_moves = $here->get_valid_next_moves(\@path, $caves);
 
-  print "Here are my next valid moves: \n";
-  foreach my $there (@{$valid_next_moves}) {
-    print " * ", $there->{'name'}, "\n";
-  }
+  #print "Here are my next valid moves: \n";
+  #foreach my $there (@{$valid_next_moves}) {
+    #print " * ", $there->{'name'}, "\n";
+  #}
 
   #<>;
 

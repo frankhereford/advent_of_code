@@ -33,12 +33,12 @@ sub is_ok_to_visit {
   my %found_little_ones = ();
 
   foreach my $past_node_name (@$visited_nodes) {
-    print "Past node name .. ", $past_node_name, "\n";
+    #print "Past node name .. ", $past_node_name, "\n";
     $found_little_ones{$past_node_name}++ unless $cave_map->{$past_node_name}->{'is_large'};
   }
 
-  print "Here is my little cave history: \n";
-  print Dumper \%found_little_ones;
+  #print "Here is my little cave history: \n";
+  #print Dumper \%found_little_ones;
 
   my $have_visited_small_cave_twice_already = 0;
   foreach my $little_cave (keys(%found_little_ones)) {
