@@ -14,11 +14,15 @@ while (my $line = <$input>) {
 }
 close $input;
 
-my @board = ();
+my $board = [];
 
-foreach my $rank (@input) {
-  my @rank = split(//, $rank);
-  push @board, \@rank;
+for (my $x = 0; $x < 10; $x++) {
+  for (my $y = 0; $y < 10; $y++) {
+    $board->[$x]->[$y] = { 
+      level => substr($input[$y], $x, 1),
+      has_flashed_this_turn => 0,
+
+  }
 }
 
-print Dumper \@board;
+print Dumper $board;
