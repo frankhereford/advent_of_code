@@ -8,7 +8,7 @@ use Data::Dumper;
 use Cave;
 
 my @input = ();
-open (my $input, '<', 'big_test_input');
+open (my $input, '<', 'input');
 while (my $line = <$input>) { 
   chomp $line;
   #print $line, "\n";
