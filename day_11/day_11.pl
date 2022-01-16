@@ -49,7 +49,6 @@ for (my $iteration = 0; $iteration < 100; $iteration++) {
   print_board($board);
   print "\nTurn ", $iteration + 1, " - Total Flashes so far: ", $flashes, "\n";
 
-  <>;
 }
 
 sub count_flashed_this_turn {
