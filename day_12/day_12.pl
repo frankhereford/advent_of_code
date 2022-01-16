@@ -17,6 +17,23 @@ close $input;
 
 my $caves = {};
 
+foreach my $input (@input) {
+  $input =~ /(\w+)-(\w+)/;
+  my $left_cave_name = $1;
+  my $right_cave_name = $2;
+
+  print $left_cave_name, "\n";
+
+  my $left_cave = create_and_or_return_cave($left_cave_name);
+  my $right_cave = create_and_or_return_cave($right_cave_name);
+
+}
+
+print Dumper $caves;
+
+sub link_two_caves {
+
+}
 
 
 sub create_and_or_return_cave {
@@ -26,4 +43,5 @@ sub create_and_or_return_cave {
     'is_large' => uc($cave_name) eq $cave_name ? 1 : 0,
     'connections' => [],
   };
+  return $caves->{$cave_name};
 }
