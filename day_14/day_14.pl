@@ -18,25 +18,3 @@ close $input;
 my $polymer = shift(@input);
 shift(@input);
 
-print $polymer, "\n\n";
-
-foreach my $operation (@input) {
-  #print $operation, "\n";
-  $operation =~ /(\w)(\w) -> (\w)/;
-  my $start = $1;
-  my $end = $2;
-  my $addition = $3;
-  
-  print "Start: ", $start, "\n";
-  print "End: ", $end, "\n";
-  print "Addition: ", $addition, "\n";
-  print "\n";
-
-  my $match_pattern = $start . $end;
-  my $match_regex = qr/$match_pattern/;
-  my $replace_pattern = $start . $addition . $end;
-
-  $polymer =~ s/$start . $end/$start . $addition . $end/g;
-  print $polymer, "\n";
-  <>;
-}
