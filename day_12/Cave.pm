@@ -23,10 +23,25 @@ sub add_connection {
 
 sub is_ok_to_visit {
   my $self = shift;
-  my $visited_nodes = shift;
+  my $visited_nodes = shift; # these are just names, not objects
+  my $cave_map = shift;
   return 1 if $self->{'is_large'};
+  return 0 if $self->{'name'} eq 'start';
 
   my $been_visited = 0;
+  
+  my %found_little_ones = ();
+
+  foreach my $past_node_name (@$visited_nodes) {
+    print "Past node name .. ", $past_node_name, "\n";
+    $found_little_ones{$past_node_name}++ unless $cave_map->{$past_node_name}->{'is_large'};
+  }
+
+  print "Here is my little cave history: \n";
+  print Dumper \%found_little_ones;
+
+  #<>;
+
   foreach my $past_node (@$visited_nodes) {
     #print "Checking ", $past_node, " vs ", $self->{'name'}, " .. \n";
     $been_visited = 1 if $past_node eq $self->{'name'};
@@ -43,11 +58,12 @@ sub is_ok_to_visit {
 sub get_valid_next_moves {
   my $self = shift;
   my $visited_nodes = shift;
+  my $cave_map = shift;
 
   my @valid_next_moves = ();
   foreach my $neighbor (@{$self->{'connections'}}) {
     push @valid_next_moves, $neighbor 
-      if $neighbor->is_ok_to_visit($visited_nodes);
+      if $neighbor->is_ok_to_visit($visited_nodes, $cave_map);
   }
 
   return \@valid_next_moves;

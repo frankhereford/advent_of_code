@@ -8,7 +8,7 @@ use Data::Dumper;
 use Cave;
 
 my @input = ();
-open (my $input, '<', 'input');
+open (my $input, '<', 'micro_test_input');
 while (my $line = <$input>) { 
   chomp $line;
   #print $line, "\n";
@@ -60,7 +60,7 @@ sub explore {
     return;
   }
 
-  my $valid_next_moves = $here->get_valid_next_moves(\@path);
+  my $valid_next_moves = $here->get_valid_next_moves(\@path, $caves);
 
   print "Here are my next valid moves: \n";
   foreach my $there (@{$valid_next_moves}) {
