@@ -36,3 +36,29 @@ for (my $step = 0; $step < 10; $step++) {
   }
   print "Step #", $step, ": ", $polymer, "\n";
 }
+
+my @letters = split(//, $polymer);
+my %letters = ();
+foreach my $letter (@letters) {
+  $letters{$letter}++;
+}
+
+print Dumper \%letters;
+my $most_common_scalar = 0;
+my $least_common_scalar = 999999999999999;
+my $most_common_letter = '';
+my $least_common_letter = '';
+
+foreach my $letter (keys(%letters)) {
+  if ($most_common_scalar < $letters{$letter}) {
+    $most_common_scalar = $letters{$letter};
+    $most_common_letter = $letter;
+  }
+  if ($least_common_scalar > $letters{$letter}) {
+    $least_common_scalar = $letters{$letter};
+    $least_common_letter = $letter;
+  }
+}
+
+my $answer = $most_common_scalar - $least_common_scalar;
+print $answer, "\n";
