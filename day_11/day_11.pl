@@ -45,6 +45,16 @@ for (my $iteration = 0; $iteration < 100; $iteration++) {
 
 sub reset_flashed_cells {
   my $board = shift;
+
+  for (my $x = 0; $x < 10; $x++) {
+    for (my $y = 0; $y < 10; $y++) {
+      if ($board->[$x]->[$y]->{'has_flashed_this_turn'}) {
+        $board->[$x]->[$y]->{'level'} = 0;
+        $board->[$x]->[$y]->{'has_flash_this_turn'} = 0;
+      }
+    }
+  }
+
   return $board;
 }
 
