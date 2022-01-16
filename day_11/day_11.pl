@@ -29,10 +29,18 @@ for (my $x = 0; $x < 10; $x++) {
 print_board($board);
 
 $board = increment_board_by_one($board);
+print "\n";
+
+print_board($board);
 
 sub increment_board_by_one {
   my $board = shift;
 
+  for (my $x = 0; $x < 10; $x++) {
+    for (my $y = 0; $y < 10; $y++) {
+      $board->[$x]->[$y]->{'level'} += 1;
+    }
+  }
 
   return $board;
 }
