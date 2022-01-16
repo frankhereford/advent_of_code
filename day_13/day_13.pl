@@ -53,9 +53,20 @@ print_board($board);
 foreach my $line (@input) {
   next unless $line =~ /fold/;
   print $line, "\n";
+  $line =~ /([xy])=(\d+)$/
+  my $direction = $1;
+  my $location = $2;
+  $board = fold($board, $direction, $location);
   last;
 }
 
+print_board($board);
+
+sub fold {
+  my $board = shift;
+  my $direction = shift;
+  my $location = shift;
+}
 
 #print Dumper $board;
 
