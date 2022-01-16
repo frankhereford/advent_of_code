@@ -40,11 +40,16 @@ sub is_ok_to_visit {
   print "Here is my little cave history: \n";
   print Dumper \%found_little_ones;
 
+  my $have_visited_small_cave_twice_already = 0;
+  foreach my $little_cave (keys(%found_little_ones)) {
+    $have_visited_small_cave_twice_already = 1 if $found_little_ones{$little_cave} > 1;
+  }
+
   #<>;
 
   foreach my $past_node (@$visited_nodes) {
     #print "Checking ", $past_node, " vs ", $self->{'name'}, " .. \n";
-    $been_visited = 1 if $past_node eq $self->{'name'};
+    $been_visited = 1 if $past_node eq $self->{'name'} and $have_visited_small_cave_twice_already;
   }
 
   #print "Has it been visited?\n";
