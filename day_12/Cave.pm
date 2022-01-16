@@ -9,6 +9,7 @@ sub new {
     name => $args->{'name'},
     is_large => uc($args->{'name'}) eq $args->{'name'} ? 1 : 0,
     connections => [],
+    been_visited => 0,
   }, $class;
 
   return $self;

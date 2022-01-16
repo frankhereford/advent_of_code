@@ -28,12 +28,18 @@ foreach my $input (@input) {
 }
 
 
-foreach my $connection (@{$caves->{'start'}->{'connections'}}) {
-  print $connection->{'name'}, "\n";
+#foreach my $connection (@{$caves->{'start'}->{'connections'}}) {
+  #print $connection->{'name'}, "\n";
+#}
+#print "\n";
+
+my @paths = ();
+
+explore($caves->{'start'}, \@paths);
+
+sub explore {
+  my $start = shift;
 }
-print "\n";
-
-
 
 sub link_two_caves {
   my $first_cave = shift;
