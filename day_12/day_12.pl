@@ -53,7 +53,6 @@ sub explore {
   print "Path so far:\n";
   print Dumper \@path;
 
-  #if (!scalar(@$valid_next_moves) or $here->{'name'} eq 'end') {
   if ($here->{'name'} eq 'end') {
     print "End of path\n";
     my @final_path = @path;
@@ -71,7 +70,6 @@ sub explore {
   #<>;
 
   foreach my $there (@{$valid_next_moves}) {
-    #print "Exploring to: ", $here->{'name'}, "\n";
     explore($there, \@path, $depth); # look for the run up the stack result
   }
 
