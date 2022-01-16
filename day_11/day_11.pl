@@ -45,6 +45,12 @@ sub flash_board {
       if (!$board->[$x]->[$y]->{'has_flashed_this_turn'} && $board->[$x]->[$y]->{'level'} > 9) {
         $board->[$x]->[$y]->{'has_flashed_this_turn'} = 1;
         $board->[$x]->[$y]->{'level'} = '*';
+        my $cords = get_near_cords($x, $y);
+        my @neighbors = @$cords;
+        foreach my $neighbor (@neighbors) {
+          $board->[$neighbor->[0]]->[$neighbor->[1]]->{'level'}++ 
+            if (!$board->[$neighbor->[0]]->[$neighbor->[1]]->{'has_flashed_this_turn'});
+        }
       }
     }
   }
@@ -78,7 +84,7 @@ sub get_near_cords {
     }
   }
 
-  return \@$cords;
+  return \@cords;
 }
 
 sub increment_board_by_one {
