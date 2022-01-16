@@ -27,14 +27,29 @@ for (my $x = 0; $x < 10; $x++) {
 }
 
 print_board($board);
-print "\n";
 
 for (my $iteration = 0; $iteration < 100; $iteration++) {
+  print "\nNew Turn!\n\n";
   $board = increment_board_by_one($board);
-  $board = flash_board($board);
-  print_board($board);
-  print "\n";
-  <>;
+  while (has_potential_flashes($board)) {
+    $board = flash_board($board);
+    print_board($board);
+    print "\n";
+    <>;
+  }
+}
+
+sub has_potential_flashes {
+  my $board = shift;
+  for (my $x = 0; $x < 10; $x++) {
+    for (my $y = 0; $y < 10; $y++) {
+      #print "Flip out $x $y\n" if $board->[$x]->[$y]->{'level'} > 9;
+      #print $board->[$x]->[$y]->{'level'}, "\n";
+      return 1 if $board->[$x]->[$y]->{'level'} > 9;
+    }
+  }
+  print "Returning no flashes upcoming.\n";
+  return 0;
 }
 
 
