@@ -17,7 +17,6 @@ sub new {
 sub add_connection {
   my $self = shift;
   my $connectee = shift;
-  #print Dumper $self->{'connections'};
   my $connections = $self->{'connections'};
   push @$connections, $connectee;
 }
