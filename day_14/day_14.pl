@@ -59,10 +59,7 @@ print
 $pairs{'BB'} +
 $pairs{'BN'} +
 $pairs{'BH'} +
-$pairs{''} +
-$pairs{''} +
-$pairs{''} +
-$pairs{''} +
+$pairs{'BC'} , "\n";
 
 exit;
 
