@@ -55,12 +55,39 @@ for (my $step = 0; $step < 40; $step++) {
   #<>;
 }
 
-print 
-$pairs{'BB'} +
-$pairs{'BN'} +
-$pairs{'BH'} +
-$pairs{'BC'} , "\n";
+#print 
+#$pairs{'BB'} +
+#$pairs{'BN'} +
+#$pairs{'BH'} +
+#$pairs{'BC'} , "\n";
 
+my %letters = ();
+
+foreach my $pair (keys(%pairs)) {
+  my $letter = substr($pair, 0, 1);
+  $letters{$letter} += $pairs{$pair};
+}
+
+my $most_common_scalar = 0;
+my $least_common_scalar = 999999999999999;
+my $most_common_letter = '';
+my $least_common_letter = '';
+
+foreach my $letter (keys(%letters)) {
+  if ($most_common_scalar < $letters{$letter}) {
+    $most_common_scalar = $letters{$letter};
+    $most_common_letter = $letter;
+  }
+  if ($least_common_scalar > $letters{$letter}) {
+    $least_common_scalar = $letters{$letter};
+    $least_common_letter = $letter;
+  }
+}
+
+print Dumper \%letters;
+
+my $answer = $most_common_scalar - $least_common_scalar;
+print $answer, "\n";
 exit;
 
 for (my $step = 0; $step < 40; $step++) {
