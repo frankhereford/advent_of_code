@@ -20,11 +20,14 @@ shift(@input);
 
 my %pairs = ();
 
+
 for (my $x = 0; $x < length($polymer) - 1; $x++) {
   my $operating_pair = substr($polymer, $x, 2);
   #print $operating_pair, "\n";
   $pairs{$operating_pair}++;
   }
+
+print Dumper \%pairs;
 
 for (my $step = 0; $step < 40; $step++) {
   my %created_pairs = ();
@@ -38,15 +41,15 @@ for (my $step = 0; $step < 40; $step++) {
     my $right = substr($pair, 1, 1);
 
     if ($pairs{$pair}) {
-      $created_pairs{$left . $addition} += $pairs{$pair};
-      $created_pairs{$addition . $right} += $pairs{$pair};
+      $created_pairs{$left . $addition} += int($pairs{$pair});
+      $created_pairs{$addition . $right} += int($pairs{$pair});
     }
     delete $pairs{$pair};
   }
 
 
   foreach my $pair (keys(%created_pairs)) {
-    $pairs{$pair} = $created_pairs{$pair};
+    $pairs{$pair} = int($created_pairs{$pair});
   }
 
   print Dumper \%pairs;
