@@ -26,27 +26,43 @@ for (my $x = 0; $x < length($polymer) - 1; $x++) {
   $pairs{$operating_pair}++;
   }
 
+for (my $step = 0; $step < 40; $step++) {
+  my %created_pairs = ();
 
-my %created_pairs = ();
+  foreach my $operation (@input) {
+    $operation =~ /(\w\w) -> (\w)/;
+    my $pair = $1;
+    my $addition = $2;
 
-foreach my $operation (@input) {
-  $operation =~ /(\w\w) -> (\w)/;
-  my $pair = $1;
-  my $addition = $2;
+    my $left = substr($pair, 0, 1);
+    my $right = substr($pair, 1, 1);
 
-  my $left = substr($pair, 0, 1);
-  my $right = substr($pair, 1, 1);
-
-  if ($pairs{$pair}) {
-    $created_pairs{$left . $addition} = $pairs{$pair};
-    $created_pairs{$addition . $right} = $pairs{$pair};
+    if ($pairs{$pair}) {
+      $created_pairs{$left . $addition} += $pairs{$pair};
+      $created_pairs{$addition . $right} += $pairs{$pair};
+    }
+    delete $pairs{$pair};
   }
-  delete $pairs{$pair};
+
+
+  foreach my $pair (keys(%created_pairs)) {
+    $pairs{$pair} = $created_pairs{$pair};
+  }
+
+  print Dumper \%pairs;
+  #print Dumper \%created_pairs;
+
+  #<>;
 }
 
-print Dumper \%pairs;
-
-print Dumper \%created_pairs;
+print 
+$pairs{'BB'} +
+$pairs{'BN'} +
+$pairs{'BH'} +
+$pairs{''} +
+$pairs{''} +
+$pairs{''} +
+$pairs{''} +
 
 exit;
 
