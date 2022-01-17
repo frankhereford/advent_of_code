@@ -7,7 +7,7 @@ use Term::ANSIColor;
 use Data::Dumper;
 
 my @input = ();
-open (my $input, '<', 'input');
+open (my $input, '<', 'test_input');
 while (my $line = <$input>) { 
   chomp $line;
   #print $line, "\n";
@@ -17,6 +17,38 @@ close $input;
 
 my $polymer = shift(@input);
 shift(@input);
+
+my %pairs = ();
+
+for (my $x = 0; $x < length($polymer) - 1; $x++) {
+  my $operating_pair = substr($polymer, $x, 2);
+  #print $operating_pair, "\n";
+  $pairs{$operating_pair}++;
+  }
+
+
+my %created_pairs = ();
+
+foreach my $operation (@input) {
+  $operation =~ /(\w\w) -> (\w)/;
+  my $pair = $1;
+  my $addition = $2;
+
+  my $left = substr($pair, 0, 1);
+  my $right = substr($pair, 1, 1);
+
+  if ($pairs{$pair}) {
+    $created_pairs{$left . $addition} = $pairs{$pair};
+    $created_pairs{$addition . $right} = $pairs{$pair};
+  }
+  delete $pairs{$pair};
+}
+
+print Dumper \%pairs;
+
+print Dumper \%created_pairs;
+
+exit;
 
 for (my $step = 0; $step < 40; $step++) {
   for (my $x = 0; $x < length($polymer) - 1; $x++) {
